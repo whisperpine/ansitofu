@@ -29,3 +29,13 @@ jobs:
       - name: Check the latest commit message
         shell: nix shell nixpkgs#cocogitto --quiet --command bash {0}
         run: cog check HEAD..HEAD
+
+  ansible-lint:
+    runs-on: ubuntu-latest
+    name: ansible lint
+    steps:
+      - uses: actions/checkout@v5
+      - uses: cachix/install-nix-action@v31
+      - name: Run typos command
+        shell: nix shell nixpkgs#ansible-lint --quiet --command bash {0}
+        run: ansible-lint --strict
