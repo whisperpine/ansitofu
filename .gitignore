@@ -1,0 +1,39 @@
+# direnv
+/.direnv
+
+# deliberately untracked files
+/todo.md
+
+# Ansible-specific ignores
+*.retry  # Ansible retry files
+*.log    # Log files generated during execution
+*.tmp    # Temporary files
+
+# Ansible Galaxy and role dependencies
+roles/external/
+ansible-galaxy.yml
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Local development and testing
+.vagrant/  # Vagrant-related files
+*.box      # Vagrant box files
+molecule/*/molecule.yml  # Molecule test configs
+molecule/*/.*            # Molecule hidden files
+molecule/*/*.retry
+molecule/*/log/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*~
+
+# OS-generated files
+.DS_Store
+Thumbs.db
