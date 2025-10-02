@@ -2,6 +2,7 @@
 /.direnv
 
 # deliberately untracked files
+/playbooks/playground.yaml
 /todo.md
 
 # Ansible-specific ignores
