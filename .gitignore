@@ -3,6 +3,7 @@
 
 # deliberately untracked files
 /playbooks/playground.yaml
+/playbooks/playground.yml
 /todo.md
 
 # Ansible-specific ignores
