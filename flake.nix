@@ -22,6 +22,9 @@
         {
           default = pkgs.mkShell {
             packages = with pkgs; [
+              ansible # configuration as code
+              opentofu # infrastructure as code
+              sops # simple tool for managing secrets
               just # just a command runner
               cocogitto # conventional commit toolkit
               husky # managing git hooks
