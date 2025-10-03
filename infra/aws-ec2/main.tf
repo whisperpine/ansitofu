@@ -18,10 +18,11 @@ resource "aws_instance" "default" {
   vpc_security_group_ids = [var.security_group_id]
   # Note: find AMI in AWS dashboard (try to create an EC2 instance).
   ami = "ami-0933f1385008d33c4" # Ubuntu, 24.04 LTS
-
-  ephemeral_block_device {
-    device_name  = "/dev/sde"
-    virtual_name = "ephemeral0"
+  root_block_device {
+    encrypted = true
+  }
+  metadata_options {
+    http_tokens = "required"
   }
 }
 

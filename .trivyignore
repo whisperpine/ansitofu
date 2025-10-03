@@ -1,0 +1,36 @@
+# ------------------------------------------------
+# trivy config
+# ------------------------------------------------
+
+# CRITICAL: Network ACL rule allows access using ALL ports.
+# Ensure access to specific required ports is allowed, and nothing else.
+# See https://avd.aquasec.com/misconfig/aws-vpc-no-excessive-port-access
+AVD-AWS-0102
+
+# CRITICAL: Security group rule allows unrestricted egress to any IP address.
+# Opening up ports to connect out to the public internet is generally to be
+# avoided. You should restrict access to IP addresses or ranges that are
+# explicitly required where possible.
+# See https://avd.aquasec.com/misconfig/aws-vpc-no-public-egress-sgr
+AVD-AWS-0104
+
+# HIGH: Security group rule allows unrestricted ingress from any IP address.
+# Security groups provide stateful filtering of ingress and egress network traffic to AWS
+# resources. It is recommended that no security group allows unrestricted ingress access to
+# remote server administration ports, such as SSH to port 22 and RDP to port 3389.
+# See https://avd.aquasec.com/misconfig/avd-aws-0107
+AVD-AWS-0107
+
+# MEDIUM: VPC does not have VPC Flow Logs enabled.
+# VPC Flow Logs provide visibility into network traffic that traverses the VPC
+# and can be used to detect anomalous tra ffic or insight during security workflows.
+# See https://avd.aquasec.com/misconfig/aws-autoscaling-enable-at-rest-encryption
+AVD-AWS-0178
+
+# MEDIUM: Network ACL rule allows unrestricted ingress from any IP address.
+# The Network Access Control List (NACL) function provide stateless filtering
+# of ingress and egress network traffic to AWS resources. It is recommended that
+# no NACL allows unrestricted ingress access to remote server administration
+# ports, such as SSH to port 22 and RDP to port 3389.
+# See https://avd.aquasec.com/misconfig/aws-vpc-no-public-ingress-acl
+AVD-AWS-0105

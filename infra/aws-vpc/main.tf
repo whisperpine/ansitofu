@@ -101,16 +101,18 @@ resource "aws_default_security_group" "default" {
 # Security group ingress rule.
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_ingress_rule
 resource "aws_vpc_security_group_ingress_rule" "allow_ssh_ipv4" {
+  description       = "allow tcp protocol of 22 port (ssh connection)"
   security_group_id = aws_default_security_group.default.id
   cidr_ipv4         = "0.0.0.0/0" # Allows SSH from any IP (restrict for production).
-  from_port         = 22
   ip_protocol       = "tcp"
+  from_port         = 22
   to_port           = 22
 }
 
 # Security group egress rule.
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_egress_rule
 resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
+  description       = "allow all egress traffic"
   security_group_id = aws_default_security_group.default.id
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1" # Semantically equivalent to all ports.
