@@ -29,3 +29,11 @@ module "aws_vpc" {
   source     = "./aws-vpc"
   cidr_block = "172.30.0.0/16"
 }
+
+# Create aws EC2 instances and auxiliary resources.
+module "aws_ec2" {
+  source            = "./aws-ec2"
+  subnet_id         = module.aws_vpc.subnet_id
+  security_group_id = module.aws_vpc.security_group_id
+  ssh_public_key    = file("./id_rsa.pub")
+}

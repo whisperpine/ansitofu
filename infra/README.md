@@ -11,6 +11,8 @@ or [OpenTofu](https://github.com/opentofu/opentofu)
   Create commonly used aws resources (e.g. aws resource group).
 - [aws-vpc](./aws-vpc/README.md):
   Create AWS VPC relevant resources (e.g. Subnet, Security Groups).
+- [aws-ec2](./aws-ec2/README.md):
+  Create AWS EC2 instances and auxiliary resources.
 
 ## Terraform Remote Backend
 
@@ -52,4 +54,6 @@ to learn how to use each output.
 cd INFRA_DIR
 # List all outputs with value masked by <sensitive>.
 tofu output 
+# Print a specific sensitive output value ("public_ip" is used here).
+tofu output public_ip
 ```
