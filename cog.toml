@@ -1,6 +1,6 @@
 tag_prefix = "v"
 
-scopes = ["deps", "infra"]
+scopes = ["deps", "infra", "ansible"]
 
 [commit_types]
 fix = { changelog_title = "Bug Fixes" }
