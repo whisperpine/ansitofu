@@ -5,5 +5,5 @@ output "subnet_id" {
 
 output "security_group_id" {
   description = "the id of the security group"
-  value       = aws_security_group.allow_ssh.id
+  value       = aws_default_security_group.default.id
 }
