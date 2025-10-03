@@ -9,6 +9,8 @@ or [OpenTofu](https://github.com/opentofu/opentofu)
 
 - [aws-common](./aws-common/README.md):
   Create commonly used aws resources (e.g. aws resource group).
+- [aws-vpc](./aws-vpc/README.md):
+  Create AWS VPC relevant resources (e.g. Subnet, Security Groups).
 
 ## Terraform Remote Backend
 

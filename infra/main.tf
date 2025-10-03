@@ -24,3 +24,8 @@ module "aws_common" {
   default_tags            = local.default_tags
 }
 
+# Create AWS VPC relevant resources (e.g. Subnet, Security Groups).
+module "aws_vpc" {
+  source     = "./aws-vpc"
+  cidr_block = "172.30.0.0/16"
+}
