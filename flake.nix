@@ -27,6 +27,7 @@
               sops # simple tool for managing secrets
               just # just a command runner
               cocogitto # conventional commit toolkit
+              git-cliff # changelog generator
               trivy # scan security issues
               husky # managing git hooks
               typos # check misspelling
