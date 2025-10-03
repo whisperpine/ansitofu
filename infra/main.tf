@@ -16,3 +16,11 @@ locals {
   aws_access_key_id     = data.sops_file.default.data["aws_access_key_id"]
   aws_secret_access_key = data.sops_file.default.data["aws_secret_access_key"]
 }
+
+# Create commonly used aws resources (e.g. aws resource group).
+module "aws_common" {
+  source                  = "./aws-common"
+  aws_resource_group_name = "${local.repository}-${terraform.workspace}"
+  default_tags            = local.default_tags
+}
+
