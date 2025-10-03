@@ -38,14 +38,7 @@ resource "aws_subnet" "default" {
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/default_network_acl
 resource "aws_default_network_acl" "default" {
   default_network_acl_id = aws_vpc.default.default_network_acl_id
-}
-
-# Explicitly associate subnet and network ACL.
-# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl_association
-resource "aws_network_acl_association" "default" {
-  # network_acl_id = aws_network_acl.default.id
-  network_acl_id = aws_vpc.default.default_network_acl_id
-  subnet_id      = aws_subnet.default.id
+  subnet_ids             = [aws_subnet.default.id]
 }
 
 # --------------------
