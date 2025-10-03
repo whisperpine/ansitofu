@@ -41,6 +41,26 @@ resource "aws_default_network_acl" "default" {
   subnet_ids             = [aws_subnet.default.id]
 }
 
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl_rule
+resource "aws_network_acl_rule" "inbound" {
+  network_acl_id = aws_default_network_acl.default.id
+  rule_number    = 200
+  egress         = false # inbound
+  protocol       = "-1"  # all protocol
+  rule_action    = "allow"
+  cidr_block     = "0.0.0.0/0"
+}
+
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl_rule
+resource "aws_network_acl_rule" "outbound" {
+  network_acl_id = aws_default_network_acl.default.id
+  rule_number    = 200
+  egress         = true # outbound
+  protocol       = "-1" # all protocol
+  rule_action    = "allow"
+  cidr_block     = "0.0.0.0/0"
+}
+
 # --------------------
 # Internet Gateway (IGW)
 # --------------------
