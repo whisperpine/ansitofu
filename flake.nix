@@ -21,6 +21,7 @@
         { pkgs }:
         {
           default = pkgs.mkShell {
+            # The Nix packages installed in the dev environment.
             packages = with pkgs; [
               ansible # configuration as code
               opentofu # infrastructure as code
@@ -34,7 +35,11 @@
             ];
             # The shell script executed when the environment is activated.
             shellHook = ''
-              # install git hook managed by husky
+              # Print the last modified date of "flake.lock".
+              stat flake.lock | grep "Modify" |
+                awk '{printf "\"flake.lock\" last modified on: %s", $2}' &&
+                echo " ($((($(date +%s) - $(stat -c %Y flake.lock)) / 86400)) days ago)"
+              # Install git hooks managed by husky.
               if [ ! -e "./.husky/_" ]; then
                 husky install
               fi
