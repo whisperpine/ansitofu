@@ -33,6 +33,7 @@ resource "aws_eip" "default" {
 }
 
 # Create a key pair in AWS using an existing public key.
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair
 resource "aws_key_pair" "default" {
   public_key = var.ssh_public_key
 }
