@@ -35,9 +35,9 @@ module "aws_vpc" {
 # Create aws EC2 instances and auxiliary resources.
 module "aws_ec2" {
   source            = "./aws-ec2"
-  subnet_id         = each.value
+  subnet_id         = module.aws_vpc.public_subnet_ids[count.index]
   security_group_id = module.aws_vpc.security_group_id
   ssh_public_key    = file("./id_ed25519.pub")
   # Create one EC2 instance for each public subnet.
-  for_each = toset(module.aws_vpc.public_subnet_ids)
+  count = length(module.aws_vpc.public_subnet_ids)
 }
