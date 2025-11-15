@@ -35,5 +35,5 @@ module "aws_ec2" {
   source            = "./aws-ec2"
   subnet_id         = module.aws_vpc.subnet_id
   security_group_id = module.aws_vpc.security_group_id
-  ssh_public_key    = file("./id_rsa.pub")
+  ssh_public_key    = file("./id_ed25519.pub")
 }
