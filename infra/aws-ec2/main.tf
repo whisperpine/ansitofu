@@ -34,7 +34,6 @@ resource "aws_eip" "default" {
 
 # Create a key pair in AWS using an existing public key.
 resource "aws_key_pair" "default" {
-  key_name   = "yusong-wsl-nixos"
   public_key = var.ssh_public_key
 }
 

@@ -1,6 +1,6 @@
-output "subnet_id" {
+output "public_subnet_ids" {
   description = "the id of the default subnet"
-  value       = aws_subnet.default.id
+  value       = [for o in aws_subnet.public : o.id]
 }
 
 output "security_group_id" {

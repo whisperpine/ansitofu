@@ -26,14 +26,18 @@ module "aws_common" {
 
 # Create AWS VPC relevant resources (e.g. Subnet, Security Groups).
 module "aws_vpc" {
-  source     = "./aws-vpc"
-  cidr_block = "172.30.0.0/16"
+  source             = "./aws-vpc"
+  cidr_block         = "10.0.0.0/16"
+  public_subnets     = ["10.0.0.0/20", "10.0.16.0/20", "10.0.32.0/20"]
+  availability_zones = ["ap-southeast-1a", "ap-southeast-1b", "ap-southeast-1c"]
 }
 
 # Create aws EC2 instances and auxiliary resources.
 module "aws_ec2" {
   source            = "./aws-ec2"
-  subnet_id         = module.aws_vpc.subnet_id
+  subnet_id         = each.value
   security_group_id = module.aws_vpc.security_group_id
   ssh_public_key    = file("./id_ed25519.pub")
+  # Create one EC2 instance for each public subnet.
+  for_each = toset(module.aws_vpc.public_subnet_ids)
 }

@@ -8,7 +8,6 @@ terraform {
   }
 }
 
-
 # --------------------
 # VPC
 # --------------------
@@ -23,11 +22,12 @@ resource "aws_vpc" "default" {
 # --------------------
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet
-resource "aws_subnet" "default" {
-  vpc_id = aws_vpc.default.id
-  # Use the full ip range of the vpc.
-  cidr_block        = var.cidr_block
-  availability_zone = "ap-southeast-1c"
+resource "aws_subnet" "public" {
+  vpc_id            = aws_vpc.default.id
+  availability_zone = var.availability_zones[count.index]
+  cidr_block        = var.public_subnets[count.index]
+  # Create one subnet for each availability zone.
+  count = length(var.availability_zones)
 }
 
 # --------------------
@@ -38,7 +38,7 @@ resource "aws_subnet" "default" {
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/default_network_acl
 resource "aws_default_network_acl" "default" {
   default_network_acl_id = aws_vpc.default.default_network_acl_id
-  subnet_ids             = [aws_subnet.default.id]
+  subnet_ids             = [for o in aws_subnet.public : o.id]
 }
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl_rule
