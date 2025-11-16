@@ -27,16 +27,15 @@ jobs:
 
       - name: Install python in ubuntu
         run: |
-          echo "# ----- apt-get update ----- #"
-          docker exec ubuntu apt-get update
-          echo "# ----- apt-get install -y python3 ----- #"
-          docker exec ubuntu apt-get install -y python3
-          echo "# ----- which -a python3 ----- #"
+          echo "# ----- install python3 ----- #"
+          docker exec ubuntu apt-get -q update
+          docker exec ubuntu apt-get -q install -y python3
+          echo "# ----- inspect python ----- #"
           docker exec ubuntu which -a python3
-          echo "# ----- python3 --version ----- #"
           docker exec ubuntu python3 --version
 
       - uses: cachix/install-nix-action@v31
+
       - name: Run Ansible Playbook
         shell: nix shell nixpkgs#ansible --quiet --command bash {0}
         run: |
