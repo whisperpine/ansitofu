@@ -45,6 +45,13 @@
               fi
             '';
           };
+
+          # This dev environment is used in CI ("nix develop .#ci").
+          ci = pkgs.mkShell {
+            packages = with pkgs; [
+              ansible # configuration as code
+            ];
+          };
         }
       );
     };
