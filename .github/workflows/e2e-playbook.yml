@@ -1,0 +1,43 @@
+name: E2E Playbook Tests
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  install-docker:
+    runs-on: ubuntu-latest
+
+    services:
+      ubuntu:
+        image: ubuntu:22.04
+        options: >-
+          --name ubuntu
+          --privileged
+        ports:
+          - 2222:22
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: List Docker containers
+        run: docker ps -a
+
+      - name: Prepare inventory (Docker connection)
+        run: |
+          cat > inventory.ini << 'EOF'
+          [ubuntu]
+          ubuntu ansible_connection=docker
+          EOF
+
+          echo "Inventory:"
+          cat inventory
+
+      - uses: cachix/install-nix-action@v31
+
+      - name: Run Ansible Playbook
+        shell: nix shell nixpkgs#ansible --quiet --command bash {0}
+        run: ansible-playbook -i inventory.ini playbook.yml -vv
