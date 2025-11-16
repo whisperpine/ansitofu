@@ -28,16 +28,16 @@ jobs:
 
       - name: Prepare inventory (Docker connection)
         run: |
-          cat > inventory.ini << 'EOF'
+          cat > inventory.ini <<EOF
           [ubuntu]
           ubuntu ansible_connection=docker
           EOF
 
           echo "Inventory:"
-          cat inventory
+          cat inventory.ini
 
       - uses: cachix/install-nix-action@v31
 
       - name: Run Ansible Playbook
         shell: nix shell nixpkgs#ansible --quiet --command bash {0}
-        run: ansible-playbook -i inventory.ini playbook.yml -vv
+        run: ansible-playbook -i inventory.ini ./playbooks/install-docker.yml -vv
