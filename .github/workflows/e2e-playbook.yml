@@ -28,8 +28,8 @@ jobs:
       - name: Install python in ubuntu
         run: |
           echo "# ----- install python3 ----- #"
-          docker exec ubuntu apt-get -q update
-          docker exec ubuntu apt-get -q install -y python3
+          docker exec ubuntu apt-get -qq update
+          docker exec ubuntu apt-get -qq install -y python3
           echo "# ----- inspect python ----- #"
           docker exec ubuntu which -a python3
           docker exec ubuntu python3 --version
