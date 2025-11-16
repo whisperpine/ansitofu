@@ -13,7 +13,7 @@ jobs:
 
     services:
       ubuntu:
-        image: ubuntu:22.04
+        image: ubuntu:24.04
         options: >-
           --name ubuntu
           --privileged
@@ -30,7 +30,7 @@ jobs:
         run: |
           cat > inventory.ini <<EOF
           [ubuntu]
-          ubuntu ansible_connection=docker
+          ubuntu ansible_user=ubuntu ansible_port=2222 ansible_connection=docker
           EOF
 
           echo "Inventory:"
