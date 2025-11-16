@@ -41,12 +41,9 @@ jobs:
 
       - uses: cachix/install-nix-action@v31
 
-      - name: List the ansible inventory
-        shell: nix develop .#ci --quiet --command bash {0}
-        run: ansible-inventory -i inventories/ci-containers.yml --list
-
       - name: Run ansible playbook
         shell: nix develop .#ci --quiet --command bash {0}
         run: |
+          ansible-inventory -i inventories/ci-containers.yml --list
           ansible-playbook -i inventories/ci-containers.yml \
             playbooks/install-docker.yml -vv
