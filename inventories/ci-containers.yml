@@ -1,0 +1,10 @@
+all:
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+
+containers:
+  hosts:
+    ubuntu:
+      ansible_host: ubuntu # the container name (--name ubuntu)
+      ansible_user: root
+      ansible_connection: docker

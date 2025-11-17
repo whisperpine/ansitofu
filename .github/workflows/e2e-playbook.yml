@@ -1,0 +1,49 @@
+name: E2E Playbook Tests
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  install-docker:
+    runs-on: ubuntu-latest
+
+    services:
+      ubuntu:
+        image: ubuntu:24.04
+        options: >-
+          --name ubuntu
+          --privileged
+          --interactive
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: List Docker containers
+        run: docker ps -a
+
+      - name: Install python in ubuntu
+        run: |
+          echo "# ----- apt-get update ----- #"
+          docker exec ubuntu apt-get update
+          echo "# ----- apt-get install -y python3 ----- #"
+          docker exec ubuntu apt-get install -y python3
+
+      - name: Inspect python in ubuntu
+        run: |
+          echo "# ----- which -a python3 ----- #"
+          docker exec ubuntu which -a python3
+          echo "# ----- python3 --version ----- #"
+          docker exec ubuntu python3 --version
+
+      - uses: cachix/install-nix-action@v31
+
+      - name: Run ansible playbook
+        shell: nix develop .#ci --quiet --command bash {0}
+        run: |
+          ansible-inventory -i inventories/ci-containers.yml --list
+          ansible-playbook -i inventories/ci-containers.yml \
+            playbooks/install-docker.yml -vv
