@@ -1,4 +1,4 @@
-name: E2E Playbook Reusable Tests
+name: E2E Playbook Reusable
 
 on:
   workflow_dispatch:
