@@ -1,0 +1,25 @@
+# Default architecture.
+install_docker_arch: amd64
+
+# Repository URLs.
+install_docker_gpg_url: https://download.docker.com/linux/ubuntu/gpg
+install_docker_repo_url: https://download.docker.com/linux/ubuntu
+
+# Users to add to the docker group.
+install_docker_users:
+  - "{{ ansible_user_id }}"
+
+# Dependencies required for installation.
+install_docker_dependencies:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - software-properties-common
+  - gnupg
+
+# Docker packages to install.
+install_docker_packages:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-compose-plugin
