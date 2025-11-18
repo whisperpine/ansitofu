@@ -1,0 +1,10 @@
+- name: Ping my hosts
+  ansible.builtin.ping:
+
+- name: Print message
+  ansible.builtin.debug:
+    msg: Hello world
+
+- name: Print hostname
+  ansible.builtin.debug:
+    msg: "Hostname is {{ ansible_hostname }}"
