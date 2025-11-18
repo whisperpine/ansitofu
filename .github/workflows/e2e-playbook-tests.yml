@@ -11,4 +11,4 @@ jobs:
   install-docker:
     uses: ./.github/workflows/e2e-playbook-reusable.yml
     with:
-      playbook: install-docker.yml
+      playbook: install_docker.yml
