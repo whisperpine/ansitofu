@@ -27,7 +27,7 @@ jobs:
           --interactive
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: List Docker containers
         run: docker ps -a
