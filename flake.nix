@@ -51,6 +51,7 @@
           ci = pkgs.mkShell {
             packages = with pkgs; [
               ansible # configuration as code
+              molecule # ansible test framework
             ];
           };
         }
