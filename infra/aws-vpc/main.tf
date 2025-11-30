@@ -108,6 +108,17 @@ resource "aws_vpc_security_group_ingress_rule" "allow_ssh_ipv4" {
   to_port           = 22
 }
 
+# Security group ingress rule.
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_ingress_rule
+resource "aws_vpc_security_group_ingress_rule" "allow_vpc_internal" {
+  description       = "allow TCP traffic from inside the same vpc"
+  security_group_id = aws_default_security_group.default.id
+  cidr_ipv4         = aws_vpc.default.cidr_block
+  ip_protocol       = "tcp"
+  from_port         = 0     # All ports.
+  to_port           = 65535 # All ports.
+}
+
 # Security group egress rule.
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_egress_rule
 resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
