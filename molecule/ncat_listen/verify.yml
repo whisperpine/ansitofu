@@ -1,0 +1,44 @@
+# Purpose: assert that the instance really ended up in the expected state.
+# Molecule calls this playbook with `molecule verify`.
+- name: Verify
+  hosts: all
+  gather_facts: false
+  vars:
+    ncat_service_port: 12222
+    ncat_service_name: "ncat@{{ ncat_service_port }}.service"
+  tasks:
+    - name: Create and start a new ncat service
+      ansible.builtin.systemd:
+        name: "{{ ncat_service_name }}"
+        state: started
+        enabled: true
+      no_log: true
+
+    - name: Check if the ncat service is running
+      ansible.builtin.systemd:
+        name: "{{ ncat_service_name }}"
+      register: ncat_service_status
+      no_log: true
+
+    - name: Display service status
+      ansible.builtin.debug:
+        var: ncat_service_status.status.ActiveState
+
+    - name: Fail if service is not running
+      ansible.builtin.fail:
+        msg: "nginx service is NOT running!"
+      when: ncat_service_status.status.ActiveState != "active"
+
+    - name: Run a command to test if the port is being listened at
+      ansible.builtin.command: |
+        ncat -vz localhost {{ ncat_service_port }}
+      changed_when: false
+      register: ncat_test_status
+      failed_when: ncat_test_status.rc != 0
+      no_log: true
+
+    - name: Remove the ncat service for idempotency
+      ansible.builtin.systemd:
+        name: "{{ ncat_service_name }}"
+        state: stopped
+      no_log: true
