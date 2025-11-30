@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     name: spell check with typos
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: cachix/install-nix-action@v31
       - name: Run typos command
         shell: nix shell nixpkgs#typos --quiet --command bash {0}
@@ -24,7 +24,7 @@ jobs:
     # Only run this step in the main branch.
     if: github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: cachix/install-nix-action@v31
       - name: Check the latest commit message
         shell: nix shell nixpkgs#cocogitto --quiet --command bash {0}
@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     name: ansible lint
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: cachix/install-nix-action@v31
       - name: Run typos command
         shell: nix shell nixpkgs#ansible-lint --quiet --command bash {0}
@@ -46,7 +46,7 @@ jobs:
     permissions:
       security-events: write
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Run Trivy vulnerability scanner in repo mode
         uses: aquasecurity/trivy-action@0.33.1
         with:
@@ -70,7 +70,7 @@ jobs:
     permissions:
       security-events: write
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Run Trivy vulnerability scanner in repo mode
         uses: aquasecurity/trivy-action@0.33.1
         with:
@@ -92,7 +92,7 @@ jobs:
     runs-on: ubuntu-latest
     name: lint opentofu code by tflint
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: cachix/install-nix-action@v31
       - name: Run tflint command
         shell: nix shell nixpkgs#tflint --quiet --command bash {0}
