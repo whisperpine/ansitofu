@@ -1,6 +1,17 @@
 tag_prefix = "v"
 
-scopes = ["deps", "infra", "ansible"]
+scopes = [
+  "deps",
+  "infra",
+  "ansible",
+  "consul",
+  "mongodb",
+  "docker",
+  "registry",
+  "ncat",
+  "monitor",
+  "shell",
+]
 
 [commit_types]
 fix = { changelog_title = "Bug Fixes" }
