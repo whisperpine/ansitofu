@@ -49,7 +49,7 @@ ansible:
       ansible_playbook:
         - --diff
         - --force-handlers
-        - --inventory=../../inventories/inventory.yml
+        - --inventory=../.hosts/inventory.yml
       # ansible_navigator:
       #   - --mode stdout
       #   - --pull-policy missing

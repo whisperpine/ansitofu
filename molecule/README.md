@@ -30,7 +30,10 @@ To speed up testing, feel free to run multiple scenarios in parallel.
 
 ## Inventory
 
-The inventory used and shared by all scenarios the same as the [the real inventory](../inventories/inventory.yml).
+The inventory used and shared by all scenarios is [.hosts/inventory.yml](./.hosts/inventory.yml)
+which is a symlink of [the real inventory](../inventories/inventory.yml).
+The difference between using these two inventories is that they have different
+sibling `group_vars` directory, which provides different ansible variables.
 
 The purpose is to mimic the real-world use cases with minimal disparities:
 
