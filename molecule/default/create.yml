@@ -1,0 +1,39 @@
+- name: Create
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  no_log: "{{ molecule_no_log }}"
+  tasks:
+    # The default ubuntu image dosn't have python3 installed.
+    # Ansible requires the target host to have python3 installed.
+    # Therefore, we build a dedicated container image for test purpose.
+    - name: Ensure the container image used by hosts exists
+      community.docker.docker_image:
+        name: "{{ container_image }}"
+        build:
+          path: ..
+        source: build
+
+    - name: Create container network
+      community.docker.docker_network:
+        name: "{{ docker_network_name }}"
+        state: present
+
+    - name: Debug all ansible hosts
+      ansible.builtin.debug:
+        msg: "{{ hostvars[item].ansible_host }}"
+      no_log: false
+      loop: "{{ groups['all'] }}"
+
+    - name: Create test containers
+      community.docker.docker_container:
+        name: "{{ hostvars[item].ansible_host }}"
+        image: "{{ hostvars[item].container_image }}"
+        privileged: true # required by systemd
+        cgroupns_mode: host # required by systemd
+        command: /sbin/init # required by systemd
+        stop_signal: SIGRTMIN+3 # required by systemd
+        networks:
+          - name: "{{ docker_network_name }}"
+        state: started
+      loop: "{{ groups['all'] }}"

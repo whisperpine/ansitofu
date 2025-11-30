@@ -1,0 +1,15 @@
+- name: Prepare
+  hosts: all
+  gather_facts: false
+  no_log: "{{ molecule_no_log }}"
+  tasks:
+    - name: Verify python installation
+      ansible.builtin.command:
+        cmd: python3 --version
+      register: python_version
+      changed_when: false
+
+    - name: Display python version
+      ansible.builtin.debug:
+        msg: "{{ python_version.stdout }}"
+      no_log: false

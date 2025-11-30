@@ -1,0 +1,15 @@
+# The default ubuntu image dosn't have python3 installed.
+# Ansible requires the target host to have python3 installed.
+# Therefore, we build a dedicated container image for test purpose.
+
+FROM ubuntu:22.04
+
+# Prevent interactive prompts during build.
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Update package index and install Python.
+RUN apt-get update && \
+    apt-get install -y \
+    python3 python3-cryptography \
+    systemd systemd-sysv dbus && \
+    rm -rf /var/lib/apt/lists/*
