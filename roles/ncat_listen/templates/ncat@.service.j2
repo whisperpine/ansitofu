@@ -1,0 +1,21 @@
+[Unit]
+Description=ncat listener on port %i
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+
+ExecStart={{ ncat_listen_bin_path }} {{ ncat_listen_options }}
+Restart=on-failure
+RestartSec=2s
+
+# Set a small security sandbox.
+NoNewPrivileges=yes
+ProtectSystem=full
+ProtectHome=yes
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target

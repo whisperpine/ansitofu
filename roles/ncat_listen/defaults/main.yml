@@ -1,0 +1,9 @@
+# Path to the ncat binary.
+ncat_listen_bin_path: /usr/bin/ncat
+
+# Systemd unit options. Use %i in the string to let systemd substitute the instance (port).
+# Instructs ncat to listen, keep open for multiple connections, and bind to a port provided via %i.
+ncat_listen_options: "-l -k -p %i"
+
+# Ports to enable/start listed ports automatically.
+ncat_listen_ports: [10000, 10001]

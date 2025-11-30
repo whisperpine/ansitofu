@@ -1,0 +1,37 @@
+- name: Update apt package cache
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install the ncat package
+  ansible.builtin.apt:
+    name: ncat
+    state: present
+  no_log: true
+
+- name: Ensure ncat binary exists
+  ansible.builtin.stat:
+    path: "{{ ncat_listen_bin_path }}"
+  register: ncat_listen_bin_stat
+  no_log: true
+
+- name: Fail if ncat binary not found
+  ansible.builtin.fail:
+    msg: "ncat binary not found at {{ ncat_listen_bin_path }}."
+  when: not ncat_listen_bin_stat.stat.exists
+
+- name: Install systemd unit file for ncat@.service
+  ansible.builtin.template:
+    src: "ncat@.service.j2"
+    dest: "/etc/systemd/system/ncat@.service"
+    mode: "0644"
+  notify: Systemd daemon reload
+
+- name: Enable and start listed ncat instances (ports)
+  ansible.builtin.systemd:
+    name: "ncat@{{ item }}.service"
+    state: started
+    enabled: true
+  loop: "{{ ncat_listen_ports }}"
+  when: ncat_listen_ports | length > 0
+  no_log: true
