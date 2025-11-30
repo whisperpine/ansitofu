@@ -7,7 +7,7 @@ install_docker_repo_url: https://download.docker.com/linux/ubuntu
 
 # Users to add to the docker group.
 install_docker_users:
-  - "{{ ansible_user_id }}"
+  - "{{ ansible_facts['user_id'] }}"
 
 # Dependencies required for installation.
 install_docker_dependencies:
