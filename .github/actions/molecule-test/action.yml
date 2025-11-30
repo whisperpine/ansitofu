@@ -1,0 +1,20 @@
+name: Run Molecule Test on a Scenario
+description: Setup kubernetes, install flux, add GitRepository resource
+inputs:
+  scenario:
+    description: The molecule scenario name
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Debug versions of required tools
+      shell: sh
+      run: |
+        docker --version
+        python --version
+    - uses: cachix/install-nix-action@v31
+    - name: Run ansible playbook
+      shell: nix develop .#ci --quiet --command bash {0}
+      run: |
+        molecule test --scenario-name "${{ inputs.scenario }}" --report
