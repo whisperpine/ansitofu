@@ -1,7 +1,7 @@
-# direnv
+# Direnv
 /.direnv
 
-# deliberately untracked files
+# Deliberately untracked files
 /playbooks/playground.yaml
 /playbooks/playground.yml
 /todo.md
