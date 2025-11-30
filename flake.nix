@@ -24,6 +24,7 @@
             # The Nix packages installed in the dev environment.
             packages = with pkgs; [
               ansible # configuration as code
+              molecule # ansible test framework
               opentofu # infrastructure as code
               sops # simple tool for managing secrets
               just # just a command runner
