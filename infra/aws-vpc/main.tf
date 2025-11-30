@@ -34,16 +34,15 @@ resource "aws_subnet" "public" {
 # Network ACL
 # --------------------
 
-# VPC's default Network ACL.
-# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/default_network_acl
-resource "aws_default_network_acl" "default" {
-  default_network_acl_id = aws_vpc.default.default_network_acl_id
-  subnet_ids             = [for o in aws_subnet.public : o.id]
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl
+resource "aws_network_acl" "default" {
+  vpc_id     = aws_vpc.default.id
+  subnet_ids = [for o in aws_subnet.public : o.id]
 }
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl_rule
 resource "aws_network_acl_rule" "inbound" {
-  network_acl_id = aws_default_network_acl.default.id
+  network_acl_id = aws_network_acl.default.id
   rule_number    = 200
   egress         = false # inbound
   protocol       = "-1"  # all protocol
@@ -53,7 +52,7 @@ resource "aws_network_acl_rule" "inbound" {
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl_rule
 resource "aws_network_acl_rule" "outbound" {
-  network_acl_id = aws_default_network_acl.default.id
+  network_acl_id = aws_network_acl.default.id
   rule_number    = 200
   egress         = true # outbound
   protocol       = "-1" # all protocol
@@ -101,7 +100,7 @@ resource "aws_default_security_group" "default" {
 # Security group ingress rule.
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_ingress_rule
 resource "aws_vpc_security_group_ingress_rule" "allow_ssh_ipv4" {
-  description       = "allow tcp protocol of 22 port (ssh connection)"
+  description       = "allow TCP traffic of port 22 (ssh connection)"
   security_group_id = aws_default_security_group.default.id
   cidr_ipv4         = "0.0.0.0/0" # Allows SSH from any IP (restrict for production).
   ip_protocol       = "tcp"
