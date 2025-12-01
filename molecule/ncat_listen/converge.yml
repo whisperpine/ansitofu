@@ -2,7 +2,6 @@
 # Molecule calls this playbook with `molecule converge`.
 - name: Converge
   hosts: all
-  become: true
   tasks:
     - name: Apply the vcounter role
       ansible.builtin.include_role:
