@@ -25,9 +25,9 @@ runs:
         SOPS_AGE_KEY: ${{ inputs.sops_age_key }}
       shell: nix shell nixpkgs#sops --quiet --command bash {0}
       run: |
-        tmpfile=$(mktemp)
-        sops decrypt --output-type dotenv encrypted.env >"$tmpfile"
-        . "$tmpfile"
+        set -a
+        source <(sops decrypt --output-type dotenv encrypted.env)
+        set +a
         echo "$ANSIBLE_VAULT_PASSWORD" >.vault_pass.txt
 
     - name: Run ansible playbook
