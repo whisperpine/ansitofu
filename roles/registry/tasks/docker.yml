@@ -1,0 +1,25 @@
+- name: Ensure docker cert trust directory exists
+  ansible.builtin.file:
+    path: "/etc/docker/certs.d/{{ registry_hostname }}:{{ registry_port }}"
+    state: directory
+    mode: "0755"
+
+- name: Install registry CA on all hosts
+  ansible.builtin.copy:
+    content: "{{ registry_shared_ca | b64decode }}"
+    dest: "/etc/docker/certs.d/{{ registry_hostname }}:{{ registry_port }}/ca.crt"
+    mode: "0644"
+
+- name: Install daemon.json to enable TLS
+  ansible.builtin.template:
+    src: daemon.json.j2
+    dest: /etc/docker/daemon.json
+    mode: "0644"
+  notify: Restart docker
+
+- name: Ensure registry hostnames exist in /etc/hosts
+  ansible.builtin.blockinfile:
+    path: /etc/hosts
+    marker: "# {mark} ANSIBLE MANAGED REGISTRY HOSTS"
+    block: |
+      {{ registry_ip }} {{ registry_hostname }}

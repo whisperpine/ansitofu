@@ -1,0 +1,27 @@
+- name: Ensure compose directory exists
+  ansible.builtin.file:
+    path: "{{ registry_compose_dir }}"
+    state: directory
+    mode: "0755"
+  when: inventory_hostname == groups['registry'][0]
+
+- name: Ensure data directory exists
+  ansible.builtin.file:
+    path: "{{ registry_data_dir }}"
+    state: directory
+    mode: "0755"
+  when: inventory_hostname == groups['registry'][0]
+
+- name: Copy compose.yaml from the template
+  ansible.builtin.template:
+    src: compose.yaml.j2
+    dest: "{{ registry_compose_dir }}/compose.yaml"
+    mode: "0644"
+  when: inventory_hostname == groups['registry'][0]
+
+- name: Spin up registry by docker compose
+  community.docker.docker_compose_v2:
+    project_src: "{{ registry_compose_dir }}"
+    pull: always
+    state: present
+  when: inventory_hostname == groups['registry'][0]

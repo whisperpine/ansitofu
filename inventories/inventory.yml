@@ -22,3 +22,13 @@ mongodb:
       mongo_role: secondary
     node_3:
       mongo_role: arbiter
+
+# Only one node hosts the docker registry.
+# But all nodes should trust the self-signed certificate.
+# e.g. by this condition:
+# `when: inventory_hostname == groups['registry'][0]`
+registry:
+  hosts:
+    node_1: # cert trusted by docker daemon. registry is deployed here.
+    node_2: # cert trusted by docker daemon.
+    node_3: # cert trusted by docker daemon.

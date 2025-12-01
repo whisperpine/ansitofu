@@ -1,0 +1,12 @@
+services:
+  registry:
+    image: registry:3
+    ports:
+      - "{{ registry_port }}:5000"
+    environment:
+      REGISTRY_HTTP_TLS_CERTIFICATE: "/certs/domain.crt"
+      REGISTRY_HTTP_TLS_KEY: "/certs/domain.key"
+    volumes:
+      - "{{ registry_data_dir }}:/var/lib/registry"
+      - "{{ registry_cert_dir }}:/certs"
+    restart: always
