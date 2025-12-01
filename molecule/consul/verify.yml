@@ -1,0 +1,23 @@
+# Purpose: assert that the instance really ended up in the expected state.
+# Molecule calls this playbook with `molecule verify`.
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Run a command to see consul members
+      ansible.builtin.command: |
+        consul members
+      changed_when: false
+      failed_when: false # handled by the task below
+      register: consul_members
+      no_log: true
+
+    - name: Fail when existing with non-zero code
+      ansible.builtin.fail:
+        msg: "{{ consul_members.stderr }}"
+      when: consul_members.rc != 0
+
+    - name: Debug consul members
+      ansible.builtin.debug:
+        var: consul_members.stdout
+      when: consul_members.rc == 0
