@@ -37,8 +37,13 @@ jobs:
       - uses: actions/checkout@v6
       - uses: cachix/install-nix-action@v31
       - name: Run typos command
-        shell: nix shell nixpkgs#ansible-lint --quiet --command bash {0}
-        run: ansible-lint --strict
+        env:
+          SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
+        shell: nix shell nixpkgs#sops nixpkgs#ansible-lint --quiet --command bash {0}
+        run: |
+          source <(sops decrypt --output-type dotenv encrypted.env)
+          echo "$ANSIBLE_VAULT_PASSWORD" >.vault_pass.txt
+          ansible-lint --strict
 
   trivy-fs:
     name: use trivy to scan files
