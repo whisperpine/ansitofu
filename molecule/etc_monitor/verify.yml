@@ -1,0 +1,101 @@
+# Purpose: assert that the instance really ended up in the expected state.
+# Molecule calls this playbook with `molecule verify`.
+- name: Verify
+  hosts: all
+  gather_facts: false
+  no_log: "{{ molecule_no_log }}"
+  vars:
+    root_mail_box: /var/mail/root
+  tasks:
+    - name: Test file creation
+      block:
+        - name: Ensure root_mail_box is empty
+          ansible.builtin.file:
+            path: "{{ root_mail_box }}"
+            state: absent
+        # Test creating a file.
+        - name: Create a test file under /etc
+          ansible.builtin.copy:
+            dest: /etc/test_file_created_by_molecule
+            content: "test file content"
+            mode: "0644"
+        - name: Check if root_mail_box exists
+          ansible.builtin.stat:
+            path: "{{ root_mail_box }}"
+          register: root_mail_box_stat
+          failed_when: not root_mail_box_stat.stat.exists
+        - name: Remove test file for idempotency
+          ansible.builtin.file:
+            path: "/etc/test_file_created_by_molecule"
+            state: absent
+
+    - name: Test directory creation
+      block:
+        - name: Ensure root_mail_box is empty
+          ansible.builtin.file:
+            path: "{{ root_mail_box }}"
+            state: absent
+        # Test creating a dir.
+        - name: Create a test directory under /etc
+          ansible.builtin.file:
+            path: /etc/test_dir_created_by_molecule
+            state: directory
+            force: true
+            mode: "0644"
+        - name: Check if root_mail_box exists
+          ansible.builtin.stat:
+            path: "{{ root_mail_box }}"
+          register: root_mail_box_stat
+          failed_when: not root_mail_box_stat.stat.exists
+        - name: Remove test directory for idempotency
+          ansible.builtin.file:
+            path: "/etc/test_dir_created_by_molecule"
+            state: absent
+
+    - name: Test file modification
+      block:
+        - name: Create a test file under /etc
+          ansible.builtin.copy:
+            dest: /etc/test_file_created_by_molecule
+            content: "test file content"
+            mode: "0644"
+        - name: Ensure root_mail_box is empty
+          ansible.builtin.file:
+            path: "{{ root_mail_box }}"
+            state: absent
+        # Test modifying a file.
+        - name: Modify the test file under /etc
+          ansible.builtin.lineinfile:
+            path: /etc/test_file_created_by_molecule
+            line: "added line for test"
+        - name: Check if root_mail_box exists
+          ansible.builtin.stat:
+            path: "{{ root_mail_box }}"
+          register: root_mail_box_stat
+          failed_when: not root_mail_box_stat.stat.exists
+        - name: Remove test file for idempotency
+          ansible.builtin.file:
+            path: "/etc/test_file_created_by_molecule"
+            state: absent
+
+    - name: Test file removing
+      block:
+        - name: Create a test file under /etc
+          ansible.builtin.copy:
+            dest: /etc/test_file_created_by_molecule
+            content: "test file content"
+            mode: "0644"
+        - name: Ensure root_mail_box is empty
+          ansible.builtin.file:
+            path: "{{ root_mail_box }}"
+            state: absent
+        # Test removing a file.
+        - name: Remove the test file under /etc
+          ansible.builtin.file:
+            path: /etc/test_file_created_by_molecule
+            state: absent
+        - name: Check if root_mail_box exists
+          ansible.builtin.stat:
+            path: "{{ root_mail_box }}"
+          register: root_mail_box_stat
+          failed_when: not root_mail_box_stat.stat.exists

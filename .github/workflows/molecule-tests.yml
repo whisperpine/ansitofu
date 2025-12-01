@@ -25,3 +25,9 @@ jobs:
     secrets: inherit
     with:
       scenario: consul
+
+  etc_monitor:
+    uses: ./.github/workflows/molecule-test-reusable.yml
+    secrets: inherit
+    with:
+      scenario: etc_monitor
