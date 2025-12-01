@@ -10,5 +10,6 @@ on:
 jobs:
   ncat_listen:
     uses: ./.github/workflows/molecule-test-reusable.yml
+    secrets: inherit
     with:
       scenario: ncat_listen
