@@ -18,6 +18,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v6
+
       - name: Debug versions of required tools
         shell: sh
         run: |
@@ -32,9 +34,7 @@ jobs:
           SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
         shell: nix shell nixpkgs#sops --quiet --command bash {0}
         run: |
-          set -a
           source <(sops decrypt --output-type dotenv encrypted.env)
-          set +a
           echo "$ANSIBLE_VAULT_PASSWORD" >.vault_pass.txt
 
       - name: Run ansible playbook
