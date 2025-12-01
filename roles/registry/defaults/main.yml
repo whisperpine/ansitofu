@@ -1,0 +1,17 @@
+# Host name, port number, IP address.
+registry_hostname: "registry.local"
+registry_port: 5000
+registry_ip: "{{ hostvars['node_1'].ansible_default_ipv4.address }}"
+
+# Directories.
+registry_root: "/opt/registry"
+registry_cert_dir: "{{ registry_root }}/certs"
+registry_data_dir: "{{ registry_root }}/data"
+registry_compose_dir: "{{ registry_root }}/compose"
+
+# Certificate info.
+registry_cert_country: "CN"
+registry_cert_state: "SC"
+registry_cert_city: "CD"
+registry_cert_org: "Yusong"
+registry_cert_ou: "SRE"
