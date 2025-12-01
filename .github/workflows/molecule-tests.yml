@@ -13,3 +13,9 @@ jobs:
     secrets: inherit
     with:
       scenario: ncat_listen
+
+  install_docker:
+    uses: ./.github/workflows/molecule-test-reusable.yml
+    secrets: inherit
+    with:
+      scenario: install_docker
