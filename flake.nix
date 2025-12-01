@@ -23,9 +23,7 @@
           default = pkgs.mkShell {
             # The Nix packages installed in the dev environment.
             packages = with pkgs; [
-              ansible # configuration as code
-              molecule # ansible test framework
-              opentofu # infrastructure as code
+              # --- common --- #
               sops # simple tool for managing secrets
               just # just a command runner
               cocogitto # conventional commit toolkit
@@ -33,6 +31,14 @@
               trivy # scan security issues
               husky # managing git hooks
               typos # check misspelling
+
+              # --- automation --- #
+              ansible # configuration as code
+              molecule # ansible test framework
+              opentofu # infrastructure as code
+
+              # --- python --- #
+              python313
             ];
             # The shell script executed when the environment is activated.
             shellHook = ''
