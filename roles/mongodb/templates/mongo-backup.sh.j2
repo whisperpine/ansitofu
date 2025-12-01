@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Purpose: backup mongodb
+# Usage: sh path/to/mongo-backup.sh
+# Dependencies: mongodump
+# Date: 2025-11-28
+# Author: Yusong
+
+backup_dir="{{ mongodb_backup_dir }}"
+datetime=$(date +%F_%H%M%S)
+
+mkdir -p "$backup_dir/$datetime"
+
+mongodump --host localhost --port "{{ mongodb_port }}" --oplog --out "$backup_dir/$datetime"

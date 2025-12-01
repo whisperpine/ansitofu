@@ -1,0 +1,8 @@
+- name: Install mongodb
+  ansible.builtin.import_tasks: install.yml
+- name: Configure mongodb
+  ansible.builtin.import_tasks: config.yml
+- name: Spinup mongodb replica set
+  ansible.builtin.import_tasks: spinup.yml
+- name: Backup the secondary replica
+  ansible.builtin.import_tasks: backup.yml

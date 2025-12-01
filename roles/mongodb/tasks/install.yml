@@ -1,0 +1,38 @@
+- name: Install required dependencies
+  ansible.builtin.apt:
+    name: "{{ mongodb_dependencies }}"
+    state: present
+    update_cache: true
+  no_log: true
+
+- name: Add mongodb gpg key
+  ansible.builtin.apt_key:
+    url: https://pgp.mongodb.com/server-{{ mongodb_version }}.asc
+    state: present
+  no_log: true
+
+- name: Add mongodb repository
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64] {{ mongodb_repo_url }} {{ ansible_facts['distribution_release'] }}/mongodb-org/{{ mongodb_version }} multiverse"
+    state: present
+
+- name: Install mongodb
+  ansible.builtin.apt:
+    name: mongodb-org
+    state: present
+  no_log: true
+
+## For debug only.
+# - name: Stop the mongodb service
+#   ansible.builtin.systemd:
+#     name: mongod
+#     state: stopped
+#   no_log: true
+
+## For debug only.
+# - name: Ensure the mongodb service is started
+#   ansible.builtin.systemd:
+#     name: mongod
+#     state: started
+#     enabled: true
+#   no_log: true
