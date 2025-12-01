@@ -1,0 +1,27 @@
+- name: Deploy mongodb backup script on secondary
+  ansible.builtin.template:
+    src: mongo-backup.sh.j2
+    dest: "{{ mongodb_backup_script }}"
+    mode: "0755"
+  when: mongo_role == 'secondary' # take care
+
+- name: Ensure backup directory exists
+  ansible.builtin.file:
+    path: "{{ mongodb_backup_dir }}"
+    state: directory
+    mode: "0755"
+  when: mongo_role == 'secondary' # take care
+
+- name: Make sure cron.service is running
+  ansible.builtin.systemd:
+    name: cron
+    state: started
+    enabled: true
+
+- name: Schedule mongodb backup
+  ansible.builtin.cron:
+    name: "MongoDB daily backup"
+    user: root
+    minute: "*/15" # NOTE: this may be too frequen, just for testing
+    job: "{{ mongodb_backup_script }} >> {{ mongodb_backup_log }} 2>&1"
+  when: mongo_role == 'secondary' # take care

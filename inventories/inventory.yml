@@ -13,8 +13,12 @@ all:
     node_2:
     node_3:
 
-install_docker:
+# All nodes have Mongo installed, but have their specific roles.
+mongodb:
   hosts:
     node_1:
+      mongo_role: primary
     node_2:
+      mongo_role: secondary
     node_3:
+      mongo_role: arbiter

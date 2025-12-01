@@ -1,0 +1,5 @@
+- name: Deploy mongodb configuration file
+  ansible.builtin.template:
+    src: mongd.conf.j2
+    dest: /etc/mongod.conf
+    mode: "0644"

@@ -1,0 +1,15 @@
+mongodb_dependencies:
+  - ca-certificates # required by the "ansible.builtin.apt_key" module
+  - gnupg # required by the "ansible.builtin.apt_key" module
+  - iproute2 # make the "hostvars[inventory_hostname].ansible_default_ipv4.address" fact be gathered
+  - cron # required by the "ansible.builtin.cron" module
+
+mongodb_version: "8.0"
+mongodb_repo_url: https://repo.mongodb.org/apt/ubuntu
+
+mongodb_port: 27017
+mongodb_repl_set: rs0
+
+mongodb_backup_dir: /var/backups/mongodb
+mongodb_backup_script: /usr/local/bin/mongo-backup.sh
+mongodb_backup_log: /var/log/mongo-backup.log
