@@ -34,3 +34,10 @@ AVD-AWS-0178
 # ports, such as SSH to port 22 and RDP to port 3389.
 # See https://avd.aquasec.com/misconfig/aws-vpc-no-public-ingress-acl
 AVD-AWS-0105
+
+
+# LOW: Add HEALTHCHECK instruction in your Dockerfile.
+# You should add HEALTHCHECK instruction in your docker container images to
+# perform the health check on running contai ners.
+# See https://avd.aquasec.com/misconfig/ds026
+AVD-DS-0026
