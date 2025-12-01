@@ -10,15 +10,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Update package index and install Python.
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    sudo systemd systemd-sysv dbus \
-    python3 python3-cryptography && \
+    python3 python3-cryptography \
+    systemd systemd-sysv dbus && \
     rm -rf /var/lib/apt/lists/*
-
-# Give the ubuntu user sudo privileges.
-RUN echo "ubuntu ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-
-# Switch to the ubuntu user by default.
-USER ubuntu
-
-# Set working directory in the user's home.
-WORKDIR /home/ubuntu

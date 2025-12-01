@@ -1,8 +1,6 @@
 - name: Create
   hosts: localhost
   connection: local
-  become: true # docker operation requires sudo privileges
-  become_user: "{{ lookup('ansible.builtin.env', 'USER') }}"
   gather_facts: false
   no_log: "{{ molecule_no_log }}"
   tasks:

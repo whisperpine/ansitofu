@@ -4,7 +4,7 @@ molecule_scenario_name: "{{ lookup('env', 'MOLECULE_SCENARIO_NAME') }}"
 docker_network_name: "ansitofu-molecule-{{ molecule_scenario_name }}"
 
 # --- used by ansible --- #
-ansible_user: ubuntu
+ansible_user: root # don't change this value, otherwise ansible can't manage the hosts
 ansible_connection: docker
 ansible_host: "{{ docker_network_name }}-{{ inventory_hostname }}"
 ansible_python_interpreter: /usr/bin/python3
