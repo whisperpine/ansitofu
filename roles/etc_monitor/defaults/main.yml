@@ -1,0 +1,4 @@
+etc_monitor_dir: /opt/etc-monitor
+etc_monitor_packages:
+  - inotify-tools
+  - bsd-mailx

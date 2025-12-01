@@ -1,0 +1,16 @@
+[Unit]
+Description=Monitor /etc changes using inotify
+# The script sends an email, and sending email typically needs networking.
+After=network.target
+
+[Service]
+ExecStart={{ etc_monitor_dir }}/etc-monitor.sh
+Restart=always
+RestartSec=5
+User=root
+
+StandardOutput=syslog
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target
