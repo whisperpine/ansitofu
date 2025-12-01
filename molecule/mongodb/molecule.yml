@@ -1,0 +1,77 @@
+# Dependency management (download roles/collections).
+dependency:
+  name: galaxy
+  options:
+    ignore-certs: false
+    ignore-errors: false
+    role-file: requirements.yml
+    requirements-file: requirements.yml
+
+# Ansible configurations.
+ansible:
+  cfg:
+    defaults:
+      # Set this to "False" if you want to avoid host key checking.
+      # https://docs.ansible.com/projects/ansible/latest/reference_appendices/config.html#host-key-checking
+      host_key_checking: false
+      # Sets the default verbosity, equivalent to the number of -v passed in the command line.
+      # https://docs.ansible.com/projects/ansible/latest/reference_appendices/config.html#default-verbosity
+      verbosity: 1
+      # This option forces color mode even when running without a TTY or the "nocolor" setting is True.
+      # https://docs.ansible.com/projects/ansible/latest/reference_appendices/config.html#ansible-force-color
+      force_color: true
+      # Controls whether callback plugins are loaded when running /usr/bin/ansible.
+      # https://docs.ansible.com/projects/ansible/latest/reference_appendices/config.html#default-load-callback-plugins
+      bin_ansible_callbacks: true
+    ssh_connection:
+      # Pipelining reduces the number of network operations required to execute a module on the remote server.
+      # https://docs.ansible.com/projects/ansible/latest/reference_appendices/config.html#ansible-pipelining
+      pipelining: true
+
+  env:
+    MOLECULE_NO_LOG: true # var: molecule_no_log
+    # Colon-separated paths in which Ansible will search for Roles.
+    # https://docs.ansible.com/projects/ansible/latest/reference_appendices/config.html#default-roles-path
+    ANSIBLE_ROLES_PATH: ../../roles
+    # This will be automatically used by Anisble `--vault-password-file`.
+    # https://docs.ansible.com/projects/ansible/latest/reference_appendices/config.html#default-vault-password-file
+    ANSIBLE_VAULT_PASSWORD_FILE: "../../.vault_pass.txt"
+
+  executor:
+    backend: ansible-playbook
+    args:
+      ansible_playbook:
+        - --diff
+        - --force-handlers
+        - --inventory=../.hosts/inventory.yml
+      # ansible_navigator:
+      #   - --mode stdout
+      #   - --pull-policy missing
+      #   - --execution-environment-image ghcr.io/ansible/community-ansible-dev-tools:latest
+
+  playbooks:
+    # syntax: ../default/syntax.yml
+    create: ../default/create.yml
+    prepare: ../default/prepare.yml
+    converge: converge.yml
+    # idempotence: idempotence.yml
+    # side_effect: side_effect.yml
+    verify: verify.yml
+    cleanup: ../default/cleanup.yml
+    destroy: ../default/destroy.yml
+
+scenario:
+  name: mongodb
+  test_sequence:
+    - dependency
+    - cleanup
+    - destroy
+    # - syntax
+    - create
+    - prepare
+    - converge
+    # - idempotence
+    # - side_effect
+    - verify
+    - cleanup
+    - destroy

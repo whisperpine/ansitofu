@@ -31,3 +31,9 @@ jobs:
     secrets: inherit
     with:
       scenario: etc_monitor
+
+  mongodb:
+    uses: ./.github/workflows/molecule-test-reusable.yml
+    secrets: inherit
+    with:
+      scenario: mongodb
