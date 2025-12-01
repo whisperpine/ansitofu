@@ -20,4 +20,4 @@ consul_client_addr: "0.0.0.0"
 consul_server: true
 consul_bootstrap_expect: "{{ groups[consul_cluster_group] | length }}"
 consul_retry_join: "{{ groups[consul_cluster_group] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | list }}"
-consul_cluster_group: "consul" # this must match the inventory group
+consul_cluster_group: "all" # this must match the inventory group
