@@ -4,6 +4,9 @@ inputs:
   scenario:
     description: The molecule scenario name
     required: true
+  sops_age_key:
+    description: The SOPS_AGE_KEY env var
+    required: true
 
 runs:
   using: composite
@@ -19,7 +22,7 @@ runs:
 
     - name: Decrypt encrypted.env to generate .vault_pass.txt
       env:
-        SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
+        SOPS_AGE_KEY: ${{ inputs.sops_age_key }}
       shell: nix shell nixpkgs#sops --quiet --command bash {0}
       run: |
         tmpfile=$(mktemp)
