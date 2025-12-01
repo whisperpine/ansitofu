@@ -19,3 +19,9 @@ jobs:
     secrets: inherit
     with:
       scenario: install_docker
+
+  consul:
+    uses: ./.github/workflows/molecule-test-reusable.yml
+    secrets: inherit
+    with:
+      scenario: consul
