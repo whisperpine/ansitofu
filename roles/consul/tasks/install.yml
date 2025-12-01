@@ -1,0 +1,50 @@
+- name: Update apt package cache
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install required dependencies
+  ansible.builtin.apt:
+    name: "{{ consul_dependencies }}"
+    state: present
+  no_log: true
+
+- name: Create consul group
+  ansible.builtin.group:
+    name: "{{ consul_group }}"
+    state: present
+
+- name: Create consul user
+  ansible.builtin.user:
+    name: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    create_home: false
+    shell: /usr/sbin/nologin
+    system: true
+
+- name: Add consul gpg key
+  ansible.builtin.apt_key:
+    url: "{{ consul_gpg_url }}"
+    state: present
+
+- name: Add HashiCorp apt repository
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64] {{ consul_repo_url }} {{ ansible_facts['distribution_release'] }} main"
+    state: present
+
+- name: Install consul
+  ansible.builtin.apt:
+    name: consul
+    state: present
+  no_log: true
+
+- name: Create consul directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: "0755"
+  loop:
+    - "{{ consul_data_dir }}"
+    - "{{ consul_config_dir }}"
