@@ -9,11 +9,6 @@ on:
 
 jobs:
   ncat_listen:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - name: Run molecule test on a given scenario
-        uses: ./.github/actions/molecule-test
-        with:
-          sops_age_key: ${{ secrets.SOPS_AGE_KEY }}
-          scenario: ncat_listen
+    uses: ./.github/workflows/molecule-test-reusable.yml
+    with:
+      scenario: ncat_listen
