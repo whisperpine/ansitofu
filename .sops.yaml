@@ -21,3 +21,4 @@ creation_rules:
     key_groups:
       - age:
           - *yusong
+          - *github_actions
