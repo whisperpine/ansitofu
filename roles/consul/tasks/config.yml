@@ -1,0 +1,35 @@
+# To make sure "ansible_default_ipv4" is gathered.
+- name: Gather facts again
+  ansible.builtin.setup:
+
+- name: Assert ansible_default_ipv4.address exists
+  ansible.builtin.assert:
+    that:
+      - hostvars[inventory_hostname].ansible_default_ipv4.address is defined
+
+- name: Debug ansible ipv4 address
+  ansible.builtin.debug:
+    var: hostvars[inventory_hostname].ansible_default_ipv4.address
+
+- name: Deploy consul configuration
+  ansible.builtin.template:
+    src: consul.hcl.j2
+    dest: "{{ consul_config_dir }}/consul.hcl"
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: "0644"
+
+- name: Deploy systemd service template
+  ansible.builtin.template:
+    src: consul.service.j2
+    dest: /etc/systemd/system/consul.service
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Deploy the consul systemd service
+  ansible.builtin.systemd:
+    name: consul
+    state: started
+    daemon_reload: true
+  no_log: true

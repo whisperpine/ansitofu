@@ -1,0 +1,23 @@
+# Consul user and group
+consul_user: "consul"
+consul_group: "consul"
+
+consul_dependencies:
+  - ca-certificates # required by the "ansible.builtin.apt_key" module
+  - gnupg # required by the "ansible.builtin.apt_key" module
+  - iproute2 # make the "hostvars[inventory_hostname].ansible_default_ipv4.address" fact be gathered
+
+# Variables used when installing consul.
+consul_gpg_url: https://apt.releases.hashicorp.com/gpg
+consul_repo_url: https://apt.releases.hashicorp.com
+
+consul_data_dir: "/opt/consul/data"
+consul_config_dir: "/etc/consul.d"
+
+# Variables used by ../templates/consul.hcl.j2
+consul_bind_addr: "{{ hostvars[inventory_hostname].ansible_default_ipv4.address }}"
+consul_client_addr: "0.0.0.0"
+consul_server: true
+consul_bootstrap_expect: "{{ groups[consul_cluster_group] | length }}"
+consul_retry_join: "{{ groups[consul_cluster_group] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | list }}"
+consul_cluster_group: "consul" # this must match the inventory group
