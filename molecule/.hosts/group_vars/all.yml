@@ -1,10 +1,10 @@
 # --- used by tasks --- #
-container_image: ubuntu-py:22.04
+container_image: ubuntu-py:24.04
 molecule_scenario_name: "{{ lookup('env', 'MOLECULE_SCENARIO_NAME') }}"
 docker_network_name: "ansitofu-molecule-{{ molecule_scenario_name }}"
 
 # --- used by ansible --- #
-ansible_user: root
+ansible_user: ubuntu
 ansible_connection: docker
 ansible_host: "{{ docker_network_name }}-{{ inventory_hostname }}"
 ansible_python_interpreter: /usr/bin/python3

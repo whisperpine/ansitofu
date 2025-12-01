@@ -1,4 +1,4 @@
 - name: This play does nothing
   hosts: all
-  gather_facts: false
+  become: true
   roles: []
