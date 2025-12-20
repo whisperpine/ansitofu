@@ -110,6 +110,17 @@ resource "aws_vpc_security_group_ingress_rule" "allow_ssh_ipv4" {
 
 # Security group ingress rule.
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_ingress_rule
+resource "aws_vpc_security_group_ingress_rule" "allow_wireguard" {
+  description       = "allow UDP traffic of port 51820 (wireguard)"
+  security_group_id = aws_default_security_group.default.id
+  cidr_ipv4         = "0.0.0.0/0" # Allows from any IP.
+  ip_protocol       = "udp"
+  from_port         = 51820
+  to_port           = 51820
+}
+
+# Security group ingress rule.
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_ingress_rule
 resource "aws_vpc_security_group_ingress_rule" "allow_vpc_internal" {
   description       = "allow TCP traffic from inside the same vpc"
   security_group_id = aws_default_security_group.default.id
