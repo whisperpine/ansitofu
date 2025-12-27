@@ -1,8 +1,11 @@
 - name: Prepare certificates
-  ansible.builtin.import_tasks: certs.yml
+  ansible.builtin.import_tasks:
+    file: certs.yml
 
 - name: Configure docker trust
-  ansible.builtin.import_tasks: docker.yml
+  ansible.builtin.import_tasks:
+    file: docker.yml
 
 - name: Prepare docker compose deployment
-  ansible.builtin.import_tasks: dcompose.yml
+  ansible.builtin.import_tasks:
+    file: dcompose.yml

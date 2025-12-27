@@ -1,4 +1,7 @@
 - name: Install consul
-  ansible.builtin.import_tasks: install.yml
+  ansible.builtin.import_tasks:
+    file: install.yml
+
 - name: Configure consul
-  ansible.builtin.import_tasks: config.yml
+  ansible.builtin.import_tasks:
+    file: config.yml
