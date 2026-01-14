@@ -5,7 +5,7 @@
 FROM ubuntu:24.04
 
 # Prevent interactive prompts during build.
-ENV DEBIAN_FRONTEND=noninteractive
+ENV DEBIAN_FRONTEND="noninteractive"
 
 # Update package index and install Python.
 RUN apt-get update && \
