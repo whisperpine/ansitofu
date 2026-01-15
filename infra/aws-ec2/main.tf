@@ -19,7 +19,8 @@ resource "aws_instance" "default" {
   # Note: find AMI in AWS dashboard (try to create an EC2 instance).
   ami = "ami-0933f1385008d33c4" # Ubuntu, 24.04 LTS
   root_block_device {
-    encrypted = true
+    encrypted   = true
+    volume_type = "gp3"
   }
   metadata_options {
     http_tokens = "required"
@@ -43,6 +44,8 @@ resource "aws_key_pair" "default" {
 #   availability_zone = "ap-southeast-1c"
 #   # Volume size in GiB.
 #   size = 40
+#   # Type of EBS volume (gp3, io2, st1).
+#   type = "gp3"
 # }
 #
 # # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/volume_attachment
