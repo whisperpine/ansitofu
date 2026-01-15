@@ -21,6 +21,12 @@ data "aws_ec2_instance_type_offerings" "default" {
   }
 }
 
+# Use it to get corresponding values like availability zone.
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet
+data "aws_subnet" "default" {
+  id = var.subnet_id
+}
+
 # ------------ #
 # EC2 instance
 # ------------ #
@@ -62,15 +68,21 @@ resource "aws_key_pair" "default" {
   public_key = var.ssh_public_key
 }
 
+# ---------- #
+# EBS volume
+# ---------- #
+
+# # Create a non-root EBS volume.
 # # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ebs_volume
 # resource "aws_ebs_volume" "default" {
-#   availability_zone = "ap-southeast-1c"
+#   availability_zone = data.aws_subnet.default.availability_zone
 #   # Volume size in GiB.
 #   size = 40
 #   # Type of EBS volume (gp3, io2, st1).
 #   type = "gp3"
 # }
 #
+# # Mount the EBS volume to the EC2 instance.
 # # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/volume_attachment
 # resource "aws_volume_attachment" "default" {
 #   device_name = "/dev/sdh"
