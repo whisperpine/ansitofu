@@ -8,22 +8,45 @@ terraform {
   }
 }
 
+# ----------- #
+# Data blocks
+# ----------- #
+
+# Use it to check if the instance-type is valid.
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_instance_type_offerings
+data "aws_ec2_instance_type_offerings" "default" {
+  filter {
+    name   = "instance-type"
+    values = [var.instance_type]
+  }
+}
+
+# ------------ #
+# EC2 instance
+# ------------ #
+
 # Define the EC2 instance.
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance
 resource "aws_instance" "default" {
-  instance_type = "t3.micro"
-  subnet_id     = var.subnet_id
+  instance_type = var.instance_type
+  ami           = data.aws_ami.ubuntu_24_04.id
+  subnet_id     = data.aws_subnet.default.id
   key_name      = aws_key_pair.default.key_name
   # Add a security group to allow SSH access.
   vpc_security_group_ids = [var.security_group_id]
-  # Note: find AMI in AWS dashboard (try to create an EC2 instance).
-  ami = "ami-0933f1385008d33c4" # Ubuntu, 24.04 LTS
   root_block_device {
     encrypted   = true
     volume_type = "gp3"
   }
   metadata_options {
     http_tokens = "required"
+  }
+  lifecycle {
+    # Check if the assigned instance_type is valid.
+    precondition {
+      condition     = length(data.aws_ec2_instance_type_offerings.default.instance_types) > 0
+      error_message = "the ec2 instance type '${var.instance_type}' isn't supported"
+    }
   }
 }
 
