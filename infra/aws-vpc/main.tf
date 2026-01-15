@@ -8,18 +8,18 @@ terraform {
   }
 }
 
-# --------------------
+# --- #
 # VPC
-# --------------------
+# --- #
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc
 resource "aws_vpc" "default" {
   cidr_block = var.cidr_block
 }
 
-# --------------------
+# ------ #
 # Subnet
-# --------------------
+# ------ #
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet
 resource "aws_subnet" "public" {
@@ -28,11 +28,17 @@ resource "aws_subnet" "public" {
   cidr_block        = var.public_subnets[count.index]
   # Create one subnet for each availability zone.
   count = length(var.availability_zones)
+  lifecycle {
+    precondition {
+      condition     = length(var.availability_zones) == length(var.public_subnets)
+      error_message = "the number of AZ should be equal to the number of subnets"
+    }
+  }
 }
 
-# --------------------
+# ----------- #
 # Network ACL
-# --------------------
+# ----------- #
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl
 resource "aws_network_acl" "default" {
@@ -60,18 +66,18 @@ resource "aws_network_acl_rule" "outbound" {
   cidr_block     = "0.0.0.0/0"
 }
 
-# --------------------
+# ---------------------- #
 # Internet Gateway (IGW)
-# --------------------
+# ---------------------- #
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/internet_gateway
 resource "aws_internet_gateway" "default" {
   vpc_id = aws_vpc.default.id
 }
 
-# --------------------
+# ----------- #
 # Route Table
-# --------------------
+# ----------- #
 
 # VPC's main Route Table.
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/default_route_table
@@ -87,9 +93,9 @@ resource "aws_default_route_table" "default" {
   }
 }
 
-# --------------------
+# -------------- #
 # Security Group
-# --------------------
+# -------------- #
 
 # VPC's default Security Group.
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/default_security_group
@@ -126,8 +132,9 @@ resource "aws_vpc_security_group_ingress_rule" "allow_vpc_internal" {
   security_group_id = aws_default_security_group.default.id
   cidr_ipv4         = aws_vpc.default.cidr_block
   ip_protocol       = "tcp"
-  from_port         = 0     # All ports.
-  to_port           = 65535 # All ports.
+  # Allow all port ranges.
+  from_port = 0
+  to_port   = 65535
 }
 
 # Security group egress rule.
@@ -136,5 +143,7 @@ resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
   description       = "allow all egress traffic"
   security_group_id = aws_default_security_group.default.id
   cidr_ipv4         = "0.0.0.0/0"
-  ip_protocol       = "-1" # Semantically equivalent to all ports.
+  # If "ip_protocol" is set to -1, it translates to all protocols, all port
+  # ranges, and "from_port" and "to_port" values should not be defined.
+  ip_protocol = "-1"
 }
