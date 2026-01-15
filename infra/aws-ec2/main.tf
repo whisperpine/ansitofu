@@ -21,6 +21,20 @@ data "aws_ec2_instance_type_offerings" "default" {
   }
 }
 
+# Use it to get the ami used by ec2 instances.
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami
+data "aws_ami" "ubuntu_24_04" {
+  most_recent = true
+  # Canonical's official AWS account ID.
+  owners = ["099720109477"]
+  # Find filters in Ubuntu docs:
+  # https://documentation.ubuntu.com/aws/aws-how-to/instances/find-ubuntu-images/
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
+  }
+}
+
 # Use it to get corresponding values like availability zone.
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet
 data "aws_subnet" "default" {
