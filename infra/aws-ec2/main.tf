@@ -67,6 +67,11 @@ resource "aws_instance" "default" {
       condition     = length(data.aws_ec2_instance_type_offerings.default.instance_types) > 0
       error_message = "the ec2 instance type '${var.instance_type}' isn't supported"
     }
+    # Check if the ami is in correct format.
+    precondition {
+      condition     = startswith(data.aws_ami.ubuntu_24_04.id, "ami-")
+      error_message = "ami should start with 'ami-' (current value: ${data.aws_ami.ubuntu_24_04.id})"
+    }
   }
 }
 
