@@ -1,6 +1,6 @@
-# ------------------------------------------------
+# ------------ #
 # trivy config
-# ------------------------------------------------
+# ------------ #
 
 # CRITICAL: Network ACL rule allows access using ALL ports.
 # Ensure access to specific required ports is allowed, and nothing else.
