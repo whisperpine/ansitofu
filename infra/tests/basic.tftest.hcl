@@ -1,5 +1,3 @@
-# valid_string_concat.tftest.hcl
-
 # carlpett/sops provider docs: 
 # https://registry.terraform.io/providers/carlpett/sops/latest/docs
 provider "sops" {}
