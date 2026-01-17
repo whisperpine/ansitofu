@@ -1,8 +1,8 @@
-# carlpett/sops provider docs: 
+# Provider "carlpett/sops" docs: 
 # https://registry.terraform.io/providers/carlpett/sops/latest/docs
 provider "sops" {}
 
-# hashicorp/aws provider docs:
+# Provider "hashicorp/aws" docs:
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs
 provider "aws" {
   region     = local.aws_provider_region
@@ -13,7 +13,7 @@ provider "aws" {
   }
 }
 
-# Test the root module (plan).
+# Test the root module.
 run "test_root_module" {
   command = plan
   assert {

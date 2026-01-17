@@ -1,6 +1,6 @@
-# --------------------
+# --------------- #
 # module: aws_ec2
-# --------------------
+# --------------- #
 
 output "public_ips" {
   description = "a list of AWS Elastic IPs"
