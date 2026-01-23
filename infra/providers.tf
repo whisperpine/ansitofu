@@ -30,7 +30,7 @@ terraform {
   }
 }
 
-# Provider "carlpett/sops" docs: 
+# Provider "carlpett/sops" docs:
 # https://registry.terraform.io/providers/carlpett/sops/latest/docs
 provider "sops" {}
 

@@ -53,7 +53,7 @@ to learn how to use each output.
 ```sh
 cd INFRA_DIR
 # List all outputs with value masked by <sensitive>.
-tofu output 
+tofu output
 # Print a specific sensitive output value ("public_ips" is used here).
 tofu output public_ips
 ```
