@@ -5,14 +5,15 @@
   gather_facts: false
   tasks:
     - name: Run a command to check the replica set
-      ansible.builtin.command: |
-        mongosh --quiet --eval '
-        var s = rs.status();
-        if (s.ok !== 1) quit(1);
-        for (var m of s.members)
-          if (m.health !== 1 || (["PRIMARY","SECONDARY","ARBITER"].indexOf(m.stateStr) === -1))
-            quit(1);
-        quit(0);
-        '
+      ansible.builtin.command:
+        cmd: |
+          mongosh --quiet --eval '
+          var s = rs.status();
+          if (s.ok !== 1) quit(1);
+          for (var m of s.members)
+            if (m.health !== 1 || (["PRIMARY","SECONDARY","ARBITER"].indexOf(m.stateStr) === -1))
+              quit(1);
+          quit(0);
+          '
       changed_when: false
       no_log: true
