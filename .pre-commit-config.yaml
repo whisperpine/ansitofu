@@ -25,6 +25,9 @@ repos:
       # Replaces or checks mixed line endings.
       - id: mixed-line-ending
         args: ["--fix=lf"]
+      # Checks the validation of symlinks.
+      - id: check-symlinks
+        always_run: true
 
   # Local hooks inside this repository.
   - repo: local
