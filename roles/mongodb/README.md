@@ -54,7 +54,7 @@ It's expected to see something like this:
 
 ### MongoDB Failover
 
-Now let's see the failover behavior - what happens if the primary replica is in outage.
+Let's see the failover behavior - what happens if the primary replica is in outage.
 
 Manually stop the *primary* replica (e.g. just stop the VM)
 and `ssh` to "node_2" run the following command:
