@@ -1,5 +1,5 @@
 {
-  "aws_provider_region": "ENC[AES256_GCM,data:F9OtxIF7+EX5QAKzbS4=,iv:Ed8GeuADtayrHT+BNY2smwds+aY5SgSTRsS1hKssx08=,tag:cAs7PmTjb2yjEvmU8bfrRw==,type:str]",
+  "aws_provider_region": "ENC[AES256_GCM,data:1znMRsetUXNb8A==,iv:QSmw2A0HqZyC5I83EbrMU80dRlGVqBFdRJVfBfxbwA0=,tag:ZuxC9Qf/+u/JNplMif6AmQ==,type:str]",
   "aws_access_key_id": "ENC[AES256_GCM,data:nFkZFv4LX8g5TNmE65h0ZIPc6z0=,iv:xjimy1vI2KBbB9C2qNkWavr6FrNpGS6gqEjP/rUnQ2o=,tag:Sd236VPMwXU4o6cgLgnJEQ==,type:str]",
   "aws_secret_access_key": "ENC[AES256_GCM,data:tVGHW+2emQudbs/ZTOvp4Z7Q60VUCvWkPPSYx5EzNAWraTnfjdJkkQ==,iv:yn9DA4tnGV5ESxqaqkHYHJX8h0Daa8DiSP9dSI9YsTw=,tag:86nITf6Zh+kBZBEvZPNYbg==,type:str]",
   "sops": {
@@ -13,9 +13,9 @@
         "enc": "-----BEGIN AGE ENCRYPTED FILE-----\nYWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBDWmdjaHJOYjk2SC9WUHU2\nUHpvMHpHZDZmYTY5Y0ZpL0x3WFp4SzMzMlhRCm5vclVpWGEzTGNZeHYzY1RTZVNV\nMzNRbXphckpXd1JuYWF1M3N4ZWw0MGMKLS0tIGxZZzcwOEZtbzJoZ256NEdwZkhs\naW96SEdxOHI1cGxSY3ZoQWM0WWtWUGMKheJiUroQ02Jm2mOv60dIc2CwFno3JO56\ntExK8Lr3cDovfbFU41b3pTs2FSi3EqRwIwXs3xWVLoD4YJxwhhiEyg==\n-----END AGE ENCRYPTED FILE-----\n"
       }
     ],
-    "lastmodified": "2025-10-02T13:52:31Z",
-    "mac": "ENC[AES256_GCM,data:0D/CUs8ZpjgRLwCOFlcWzlXFYdnrXZ9VUlOfVhv39GUMeE+sXHqM2seSWO4wg0WH1bdzIdjYRBgZlR2S/pi0VQDSTwYm5mbHnkBTPuyHYhsIqYhKxcUxZ1V/EEgbX8ELFMplIHFyVYR9QKugRU2OPmIINuN9iqQXKLLpIssqHrk=,iv:pJ2fXEAzeGanP7MskragdZYrJV7sgqElXFs1RLRJeXE=,tag:+mJ5+++iPE0q/XNGeAraqw==,type:str]",
+    "lastmodified": "2026-03-21T03:33:45Z",
+    "mac": "ENC[AES256_GCM,data:OpUnZvS8XyI/KOZkIG+cZEshJ5nblSoen1PC5kihA+6Pv0vkWofVcqoax3LaVlzaVRgSWPeCH+YA06AqzBDxUFK7g9/hkIyCPtsPWmSHH0qPZ9rTD32u1BdB5z2vQEn5WLFqXuc11ev6N7Xip9aWF+c6ubgGVxOA2MXUd5LqWck=,iv:EbPtaiSZhMKRuWZLRac3ss7GyPbxL2YbplWBQYSj0MA=,tag:ZkwhfIr+cQ3+WAbe6rBTLQ==,type:str]",
     "unencrypted_suffix": "_unencrypted",
-    "version": "3.10.2"
+    "version": "3.11.0"
   }
 }
