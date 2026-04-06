@@ -9,8 +9,8 @@ on:
 
 jobs:
   typos:
-    runs-on: ubuntu-latest
     name: spell check with typos
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - uses: cachix/install-nix-action@v31
@@ -19,8 +19,8 @@ jobs:
         run: typos --hidden --exclude .git --format brief
 
   cocogitto:
-    runs-on: ubuntu-latest
     name: check conventional commits
+    runs-on: ubuntu-latest
     # Only run this step in the main branch.
     if: github.ref == 'refs/heads/main'
     steps:
@@ -31,12 +31,12 @@ jobs:
         run: cog check HEAD..HEAD
 
   ansible-lint:
-    runs-on: ubuntu-latest
     name: ansible lint
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - uses: cachix/install-nix-action@v31
-      - name: Run typos command
+      - name: Run ansible-lint command
         env:
           SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
         shell: nix shell nixpkgs#sops nixpkgs#ansible-lint --quiet --command bash {0}
@@ -53,7 +53,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: cachix/install-nix-action@v31
-      - name: Run Trivy vulnerability scanner in repo mode
+      - name: Run trivy vulnerability scanner in repo mode
         shell: nix shell nixpkgs#trivy --quiet --command bash {0}
         run: |
           trivy --quiet fs . \
@@ -82,8 +82,8 @@ jobs:
           category: trivy-config-scan
 
   tflint:
-    runs-on: ubuntu-latest
     name: lint opentofu code by tflint
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - uses: cachix/install-nix-action@v31
@@ -92,8 +92,8 @@ jobs:
         run: tflint --chdir ./infra --recursive
 
   tofu-fmt:
-    runs-on: ubuntu-latest
     name: check formatting of opentofu
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./infra
@@ -104,8 +104,8 @@ jobs:
         run: tofu fmt -check -diff -recursive
 
   tofu-test:
-    runs-on: ubuntu-latest
     name: tofu test
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./infra
