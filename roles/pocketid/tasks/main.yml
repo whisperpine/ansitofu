@@ -1,0 +1,24 @@
+- name: Create application directory
+  ansible.builtin.file:
+    path: "{{ pocketid_compose_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Copy the compose.yml file
+  ansible.builtin.copy:
+    src: compose.yaml # relative to the "files" dir of the current role
+    dest: "{{ pocketid_compose_dir }}/compose.yaml"
+    mode: "0644"
+
+- name: Copy from the pocket-id.env.j2 template
+  ansible.builtin.template:
+    src: pocket-id.env.j2 # relative to the "templates" dir of the current role
+    dest: "{{ pocketid_compose_dir }}/pocket-id.env"
+    mode: "0600"
+
+- name: Deploy via docker compose
+  community.docker.docker_compose_v2:
+    project_src: "{{ pocketid_compose_dir }}"
+    state: present
+    pull: policy # use the the pull_policy in compose.yaml
+    recreate: always
