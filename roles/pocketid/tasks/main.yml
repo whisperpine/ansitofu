@@ -6,14 +6,20 @@
 
 - name: Copy the compose.yml file
   ansible.builtin.copy:
-    src: compose.yaml # relative to the "files" dir of the current role
+    src: compose.yaml # relative to the "files" dir in this role
     dest: "{{ pocketid_compose_dir }}/compose.yaml"
     mode: "0644"
 
 - name: Copy from the pocket-id.env.j2 template
   ansible.builtin.template:
-    src: pocket-id.env.j2 # relative to the "templates" dir of the current role
+    src: pocket-id.env.j2 # relative to the "templates" dir in this role
     dest: "{{ pocketid_compose_dir }}/pocket-id.env"
+    mode: "0600"
+
+- name: Copy from the template.env.j2 template
+  ansible.builtin.template:
+    src: template.env.j2 # relative to the "templates" dir in this role
+    dest: "{{ pocketid_compose_dir }}/.env"
     mode: "0600"
 
 - name: Deploy via docker compose

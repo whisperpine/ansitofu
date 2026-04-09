@@ -1,11 +1,15 @@
 services:
+  cloudflared:
+    image: cloudflare/cloudflared:2026.3.0
+    restart: unless-stopped
+    pull_policy: if_not_present
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARED_TOKEN:?}
+
   pocket-id:
     image: ghcr.io/pocket-id/pocket-id:v2.5.0
     restart: unless-stopped
     env_file: pocket-id.env
     pull_policy: if_not_present
-    ports:
-      - 1411:1411
     volumes:
       - "./data:/app/data"
     healthcheck:
