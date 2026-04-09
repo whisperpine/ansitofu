@@ -36,9 +36,6 @@
               ansible # configuration as code
               molecule # ansible test framework
               opentofu # infrastructure as code
-
-              # --- python --- #
-              python313
             ];
             # The shell script executed when the environment is activated.
             shellHook = /* sh */ ''
