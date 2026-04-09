@@ -13,6 +13,13 @@ all:
     node_2:
     node_3:
 
+# All nodes participate in the Consul cluster.
+consul:
+  hosts:
+    node_1:
+    node_2:
+    node_3:
+
 # All nodes have Mongo installed, but have their specific roles.
 mongodb:
   hosts:
@@ -32,3 +39,8 @@ registry:
     node_1: # cert trusted by docker daemon. registry is deployed here.
     node_2: # cert trusted by docker daemon.
     node_3: # cert trusted by docker daemon.
+
+# Deploy pocket-id in one node.
+pocketid:
+  hosts:
+    node_1:
