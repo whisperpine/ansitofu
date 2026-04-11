@@ -2,7 +2,7 @@
 
 # Purpose: build the ansible collection and push to ansible galaxy
 # Usage: sh path/to/ansible-galaxy-publish.sh
-# Dependencies: ansible-galaxy, jq
+# Dependencies: ansible-galaxy, yq
 # Date: 2026-04-12
 # Author: Yusong
 
@@ -15,8 +15,8 @@ if [ -z "$ANSIBLE_GALAXY_API_TOKEN" ]; then
 fi
 
 # The version of the collection.
-version=$(ansible-galaxy collection list |
-  awk '$1 == "whisperpine.ansitofu" { print $2 }')
+version=$(yq -r '.version' whisperpine/ansitofu/galaxy.yml)
+
 # The file path of
 artifact_file="whisperpine-ansitofu-$version.tar.gz"
 

@@ -31,6 +31,7 @@
               trivy # scan security issues
               typos # check misspelling
               prek # better pre-commit
+              yq # yaml parser
 
               # --- automation --- #
               ansible # configuration as code
@@ -60,6 +61,7 @@
           publish = pkgs.mkShell {
             packages = with pkgs; [
               ansible # configuration as code
+              yq # yaml parser
             ];
           };
         }
