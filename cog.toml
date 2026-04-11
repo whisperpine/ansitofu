@@ -12,6 +12,7 @@ scopes = [
   "monitor",
   "pocketid",
   "shell",
+  "release",
 ]
 
 [commit_types]
