@@ -37,7 +37,7 @@ jobs:
           echo "$ANSIBLE_VAULT_PASSWORD" >.vault_pass.txt
 
       - name: Run ansible playbook
-        shell: nix develop .#ci --quiet --command bash {0}
+        shell: nix develop .#test --quiet --command bash {0}
         working-directory: ./whisperpine/ansitofu
         run: |
           molecule test --scenario-name "${{ inputs.scenario }}" --report

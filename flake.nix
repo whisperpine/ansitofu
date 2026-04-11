@@ -48,11 +48,18 @@
             '';
           };
 
-          # This dev environment is used in CI ("nix develop .#ci").
-          ci = pkgs.mkShell {
+          # This dev environment is used in CI ("nix develop .#test").
+          test = pkgs.mkShell {
             packages = with pkgs; [
               ansible # configuration as code
               molecule # ansible test framework
+            ];
+          };
+
+          # This dev environment is used in CI ("nix develop .#publish").
+          publish = pkgs.mkShell {
+            packages = with pkgs; [
+              ansible # configuration as code
             ];
           };
         }
