@@ -26,7 +26,7 @@ ncat_listen_ports: [10000, 10001]
 
 ## Automated Tests
 
-Please refer to [molecule/README.md](../../molecule/README.md).
+Please refer to [molecule/README.md](../../extensions/molecule/README.md).
 
 ## End-to-end Test
 

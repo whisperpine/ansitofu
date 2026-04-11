@@ -7,7 +7,7 @@ replication set. Restrict access to the MongoDB to replication set members only.
 
 ## Automated Tests
 
-Please refer to [molecule/README.md](../../molecule/README.md).
+Please refer to [molecule/README.md](../../extensions/molecule/README.md).
 
 ## End-to-End Test
 

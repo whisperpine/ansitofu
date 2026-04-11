@@ -4,7 +4,7 @@ This role deploys a consul cluster.
 
 ## Automated Tests
 
-Please refer to [molecule/README.md](../../molecule/README.md).
+Please refer to [molecule/README.md](../../extensions/molecule/README.md).
 
 ## End-to-end Test
 
