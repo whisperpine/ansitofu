@@ -25,27 +25,24 @@ inventory:
     -i inventories/inventory.yml \
     --list
 
-# install roles and collections defined in requirements.yml
-[group("ansible")]
-install:
-  ansible-galaxy role install -r requirements.yml
-  ansible-galaxy collection install -r requirements.yml
-
 # --------------------
 # molecule
 # --------------------
 
 # run "molecule test" with the given SCENARIO
 [group("molecule")]
+[working-directory: "whisperpine/ansitofu"]
 test SCENARIO:
   molecule test --scenario-name {{SCENARIO}} --report --command-borders
 
 # run "molecule converge" with the given SCENARIO
 [group("molecule")]
+[working-directory: "whisperpine/ansitofu"]
 converge SCENARIO:
   molecule converge --scenario-name {{SCENARIO}} --report --command-borders
 
 # run "molecule verify" with the given SCENARIO
 [group("molecule")]
+[working-directory: "whisperpine/ansitofu"]
 verify SCENARIO:
   molecule verify --scenario-name {{SCENARIO}} --report --command-borders

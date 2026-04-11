@@ -1,5 +1,0 @@
-- name: Install Docker and Docker Compose on remote server
-  hosts: all
-  become: true
-  roles:
-    - role: install_docker

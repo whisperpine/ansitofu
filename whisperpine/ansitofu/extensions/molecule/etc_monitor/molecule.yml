@@ -1,9 +1,3 @@
-# This file is a work-around to this error when running `molecule test ...`:
-# "CRITICAL 'molecule/default/molecule.yml' glob failed".
-
-# Some of the sibling files are also referenced by other molecule scenarios,
-# including: ./create.yml, ./prepare.yml, ./cleanup.yml, ./destroy.yml.
-
 # Dependency management (download roles/collections).
 dependency:
   name: galaxy
@@ -39,9 +33,6 @@ ansible:
     # Colon-separated paths in which Ansible will search for Roles.
     # https://docs.ansible.com/projects/ansible/latest/reference_appendices/config.html#default-roles-path
     ANSIBLE_ROLES_PATH: ../../roles
-    # This will be automatically used by Anisble `--vault-password-file`.
-    # https://docs.ansible.com/projects/ansible/latest/reference_appendices/config.html#default-vault-password-file
-    ANSIBLE_VAULT_PASSWORD_FILE: "../../.vault_pass.txt"
 
   executor:
     backend: ansible-playbook
@@ -56,18 +47,18 @@ ansible:
       #   - --execution-environment-image ghcr.io/ansible/community-ansible-dev-tools:latest
 
   playbooks:
-    # syntax: syntax.yml
-    create: create.yml
-    prepare: prepare.yml
+    # syntax: ../default/syntax.yml
+    create: ../default/create.yml
+    prepare: ../default/prepare.yml
     converge: converge.yml
     # idempotence: idempotence.yml
     # side_effect: side_effect.yml
     verify: verify.yml
-    cleanup: cleanup.yml
-    destroy: destroy.yml
+    cleanup: ../default/cleanup.yml
+    destroy: ../default/destroy.yml
 
 scenario:
-  name: default
+  name: etc_monitor
   test_sequence:
     - dependency
     - cleanup

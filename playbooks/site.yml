@@ -1,4 +1,5 @@
-- name: This play does nothing
-  hosts: all
-  become: true
-  roles: []
+# A smoke test of executing roles from the collection "whisperpine.ansitofu".
+- name: Executes a role in the local ansible collection "whisperpine.ansitofu"
+  hosts: localhost
+  roles:
+    - role: whisperpine.ansitofu.ping_and_debug

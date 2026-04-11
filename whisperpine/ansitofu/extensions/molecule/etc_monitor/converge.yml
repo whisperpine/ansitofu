@@ -5,4 +5,4 @@
   tasks:
     - name: Apply role under test
       ansible.builtin.include_role:
-        name: consul
+        name: whisperpine.ansitofu.etc_monitor
