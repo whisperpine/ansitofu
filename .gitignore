@@ -16,6 +16,9 @@
 roles/external/
 ansible-galaxy.yml
 
+# The collection artifact to push Ansible Galaxy.
+whisperpine-ansitofu-*.tar.gz
+
 # Ansible Vault Password
 .vault_pass.txt
 
