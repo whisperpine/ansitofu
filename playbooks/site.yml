@@ -2,4 +2,4 @@
 - name: Executes a role in the local ansible collection "whisperpine.ansitofu"
   hosts: localhost
   roles:
-    - role: whisperpine.ansitofu.ping_and_debug
+    - role: ping_and_debug
