@@ -33,9 +33,6 @@ ansible:
     # Colon-separated paths in which Ansible will search for Roles.
     # https://docs.ansible.com/projects/ansible/latest/reference_appendices/config.html#default-roles-path
     ANSIBLE_ROLES_PATH: ../../roles
-    # This will be automatically used by Anisble `--vault-password-file`.
-    # https://docs.ansible.com/projects/ansible/latest/reference_appendices/config.html#default-vault-password-file
-    ANSIBLE_VAULT_PASSWORD_FILE: "../../.vault_pass.txt"
 
   executor:
     backend: ansible-playbook
@@ -61,7 +58,7 @@ ansible:
     destroy: ../default/destroy.yml
 
 scenario:
-  name: etc_monitor
+  name: install_docker
   test_sequence:
     - dependency
     - cleanup

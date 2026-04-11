@@ -1,0 +1,8 @@
+# Default directory which contains compose.yaml and referenced files.
+pocketid_compose_dir: /opt/pocketid
+# The URL where you will access the app.
+pocketid_app_url: https://example.com
+# A base64-encoded encryption key to encrypt sensitive data.
+pocketid_encryption_key: ""
+# The token used by cloudflared (tunnel).
+pocketid_cloudflared_token: ""
