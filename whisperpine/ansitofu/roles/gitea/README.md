@@ -31,3 +31,40 @@ directly used by `ALLOW_ONLY_EXTERNAL_REGISTRATION` and
 `ENABLE_PASSWORD_SIGNIN_FORM` in [app.ini.j2](./templates/app.ini.j2).
 
 ## Backup and Restore
+
+### Backup
+
+To backup, just archive the `gitea-data` volume declared in [compose.yaml](./files/compose.yaml).
+
+Run the following command in the working directory ("/opt/gitea" by default):
+
+```sh
+# Stops the gitea container before backup.
+docker compose down gitea
+
+# Backs up gitea with the help of busybox.
+docker compose run --rm busybox \
+    tar czf /backup/gitea-data-$(date --utc +%Y%m%d).tar.gz var/lib/gitea/
+
+# Starts the gitea container after backup.
+docker compose up -d gitea
+```
+
+### Restore
+
+To restore, just extract the archive to the gitea's data directory ("/var/lib/gitea").
+
+Run the following command in the working directory ("/opt/gitea" by default):
+
+```sh
+# Stops the gitea container before backup.
+docker compose down gitea
+
+# Extracts gitea's data directory to restore.
+# (Assume that the "gitea-data.tar.gz" file exists.)
+docker compose run --rm busybox \
+  tar xf /backup/gitea-data.tar.gz
+
+# Starts the gitea container after backup.
+docker compose up -d gitea
+```

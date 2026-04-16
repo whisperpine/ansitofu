@@ -4,6 +4,12 @@
     state: directory
     mode: "0755"
 
+- name: Create the backup directory
+  ansible.builtin.file:
+    path: "{{ gitea_compose_dir }}/backup"
+    state: directory
+    mode: "0755"
+
 - name: Copy the compose.yml file
   ansible.builtin.copy:
     src: compose.yaml # relative to the "files" dir in this role
