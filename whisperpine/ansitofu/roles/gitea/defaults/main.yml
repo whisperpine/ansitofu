@@ -1,0 +1,30 @@
+# Default directory which contains compose.yaml and referenced files.
+gitea_compose_dir: "/opt/gitea"
+
+# The token used by cloudflared (tunnel).
+gitea_cloudflared_token: ""
+
+# -------------------- #
+# used by "app.ini.j2"
+# -------------------- #
+
+gitea_root_url: "https://example.com"
+gitea_lfs_jwt_secret: ""
+gitea_internal_token: ""
+gitea_jwt_secret: ""
+# SMTP configs.
+gitea_smtp_addr: ""
+gitea_email_from: "no-reply@example.com"
+gitea_smtp_user: ""
+gitea_smtp_passwd: ""
+# Only allows user registration from external auth (e.g. OIDC).
+# Set this value to "false" if gitea is deployed the first time.
+# Since you need to manually register the fist user which is admin.
+# If there's already an admin user and at least one external auth has been
+# configure, consider setting this value to "true".
+gitea_allow_only_external_registration: true
+# Set this value to "true" if gitea is deployed the first time.
+# Since you need to manually register the fist user which is admin.
+# If there's already an admin user and you want to disable password signin,
+# set this value to "false". You can login via e.g. passkeys or OIDC.
+gitea_enable_password_signin_form: false
