@@ -1,0 +1,30 @@
+- name: Create application directory
+  ansible.builtin.file:
+    path: "{{ gitea_compose_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Copy the compose.yml file
+  ansible.builtin.copy:
+    src: compose.yaml # relative to the "files" dir in this role
+    dest: "{{ gitea_compose_dir }}/compose.yaml"
+    mode: "0644"
+
+- name: Copy from the app.ini.j2 template
+  ansible.builtin.template:
+    src: app.ini.j2 # relative to the "templates" dir in this role
+    dest: "{{ gitea_compose_dir }}/app.ini"
+    mode: "0644"
+
+- name: Copy from the template.env.j2 template
+  ansible.builtin.template:
+    src: template.env.j2 # relative to the "templates" dir in this role
+    dest: "{{ gitea_compose_dir }}/.env"
+    mode: "0600"
+
+- name: Deploy via docker compose
+  community.docker.docker_compose_v2:
+    project_src: "{{ gitea_compose_dir }}"
+    state: present
+    pull: policy # use the the pull_policy in compose.yaml
+    recreate: always

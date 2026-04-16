@@ -1,0 +1,28 @@
+volumes:
+  gitea-data:
+
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:2026.3.0
+    restart: unless-stopped
+    pull_policy: if_not_present
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARED_TOKEN:?}
+
+  gitea:
+    image: gitea/gitea:1.25.5-rootless
+    restart: unless-stopped
+    pull_policy: if_not_present
+    volumes:
+      - gitea-data:/var/lib/gitea
+      - ./app.ini:/etc/gitea/app.ini:ro
+      - /etc/timezone:/etc/timezone:ro
+
+  # It's meant to be used for backup and restore.
+  # `docker compose run --rm -it busybox sh`.
+  busybox:
+    image: busybox:musl
+    restart: no
+    pull_policy: if_not_present
+    volumes:
+      # Shares the same volume with gitea.
+      - gitea-data:/var/lib/gitea
