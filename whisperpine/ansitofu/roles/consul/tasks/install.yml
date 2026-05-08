@@ -21,12 +21,12 @@
 - name: Download consul gpg key
   ansible.builtin.get_url:
     url: "{{ consul_gpg_url }}"
-    dest: /tmp/consul.asc
+    dest: /tmp/consul.gpg
     mode: "0644"
 
 - name: Convert consul gpg key to binary
   ansible.builtin.command:
-    cmd: gpg --dearmor -o "{{ consul_key_file }}" /tmp/consul.asc
+    cmd: gpg --dearmor -o "{{ consul_key_file }}" /tmp/consul.gpg
     creates: "{{ consul_key_file }}"
 
 - name: Add HashiCorp apt repository
