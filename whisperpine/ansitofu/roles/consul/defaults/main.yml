@@ -3,13 +3,14 @@ consul_user: "consul"
 consul_group: "consul"
 
 consul_dependencies:
-  - ca-certificates # required by the "ansible.builtin.apt_key" module
-  - gnupg # required by the "ansible.builtin.apt_key" module
+  - gnupg
+  - ca-certificates # required by the "ansible.builtin.get_url" module
   - iproute2 # make the "hostvars[inventory_hostname].ansible_default_ipv4.address" fact be gathered
 
 # Variables used when installing consul.
 consul_gpg_url: https://apt.releases.hashicorp.com/gpg
 consul_repo_url: https://apt.releases.hashicorp.com
+consul_key_file: /etc/apt/keyrings/consul.gpg
 
 consul_data_dir: "/opt/consul/data"
 consul_config_dir: "/etc/consul.d"

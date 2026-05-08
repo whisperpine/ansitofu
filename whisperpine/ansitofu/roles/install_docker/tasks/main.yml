@@ -1,23 +1,28 @@
-- name: Update apt package cache
-  ansible.builtin.apt:
-    update_cache: true
-    cache_valid_time: 3600
-  no_log: true
-
 - name: Install required dependencies
   ansible.builtin.apt:
     name: "{{ install_docker_dependencies }}"
     state: present
+    update_cache: true
   no_log: true
 
-- name: Add Docker GPG key
-  ansible.builtin.apt_key:
+- name: Download Docker GPG key
+  ansible.builtin.get_url:
     url: "{{ install_docker_gpg_url }}"
-    state: present
+    dest: /tmp/docker.asc
+    mode: "0644"
+
+- name: Convert Docker GPG key to binary
+  ansible.builtin.command:
+    cmd: gpg --dearmor -o "{{ install_docker_key_file }}" /tmp/docker.asc
+    creates: "{{ install_docker_key_file }}"
 
 - name: Add Docker repository
   ansible.builtin.apt_repository:
-    repo: "deb [arch={{ install_docker_arch }}] {{ install_docker_repo_url }} {{ ansible_facts['distribution_release'] }} stable"
+    repo: >-
+      deb [arch={{ install_docker_arch }} signed-by={{ install_docker_key_file }}]
+      {{ install_docker_repo_url }}
+      {{ ansible_facts['distribution_release'] }}
+      stable
     state: present
     filename: docker
 

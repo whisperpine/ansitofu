@@ -1,11 +1,11 @@
 mongodb_dependencies:
-  - ca-certificates # required by the "ansible.builtin.apt_key" module
-  - gnupg # required by the "ansible.builtin.apt_key" module
+  - ca-certificates # required by the "ansible.builtin.get_url" module
   - iproute2 # make the "hostvars[inventory_hostname].ansible_default_ipv4.address" fact be gathered
   - cron # required by the "ansible.builtin.cron" module
 
 mongodb_version: "8.0"
 mongodb_repo_url: https://repo.mongodb.org/apt/ubuntu
+mongodb_key_file: /etc/apt/keyrings/mongodb.asc
 
 mongodb_port: 27017
 mongodb_repl_set: rs0

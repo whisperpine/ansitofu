@@ -5,15 +5,19 @@
     update_cache: true
   no_log: true
 
-- name: Add mongodb gpg key
-  ansible.builtin.apt_key:
+- name: Download mongodb gpg key
+  ansible.builtin.get_url:
     url: https://pgp.mongodb.com/server-{{ mongodb_version }}.asc
-    state: present
-  no_log: true
+    dest: "{{ mongodb_key_file }}"
+    mode: "0644"
 
 - name: Add mongodb repository
   ansible.builtin.apt_repository:
-    repo: "deb [arch=amd64] {{ mongodb_repo_url }} {{ ansible_facts['distribution_release'] }}/mongodb-org/{{ mongodb_version }} multiverse"
+    repo: >-
+      deb [arch=amd64 signed-by={{ mongodb_key_file }}]
+      {{ mongodb_repo_url }}
+      {{ ansible_facts['distribution_release'] }}/mongodb-org/{{ mongodb_version }}
+      multiverse
     state: present
 
 - name: Install mongodb
