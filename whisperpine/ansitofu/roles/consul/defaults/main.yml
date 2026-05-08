@@ -3,8 +3,6 @@ consul_user: "consul"
 consul_group: "consul"
 
 consul_dependencies:
-  - ca-certificates # required by the "ansible.builtin.apt_key" module
-  - gnupg # required by the "ansible.builtin.apt_key" module
   - iproute2 # make the "hostvars[inventory_hostname].ansible_default_ipv4.address" fact be gathered
 
 # Variables used when installing consul.

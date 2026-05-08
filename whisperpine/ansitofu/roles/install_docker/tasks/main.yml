@@ -25,6 +25,7 @@
       stable
     state: present
     filename: docker
+  notify: Update apt package cache
 
 - name: Install Docker and Docker Compose Plugin
   ansible.builtin.apt:
