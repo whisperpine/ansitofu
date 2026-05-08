@@ -10,6 +10,7 @@ consul_dependencies:
 # Variables used when installing consul.
 consul_gpg_url: https://apt.releases.hashicorp.com/gpg
 consul_repo_url: https://apt.releases.hashicorp.com
+consul_key_file: /etc/apt/keyrings/consul.gpg
 
 consul_data_dir: "/opt/consul/data"
 consul_config_dir: "/etc/consul.d"

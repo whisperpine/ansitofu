@@ -6,6 +6,7 @@ mongodb_dependencies:
 
 mongodb_version: "8.0"
 mongodb_repo_url: https://repo.mongodb.org/apt/ubuntu
+mongodb_key_file: /etc/apt/keyrings/mongodb.asc
 
 mongodb_port: 27017
 mongodb_repl_set: rs0

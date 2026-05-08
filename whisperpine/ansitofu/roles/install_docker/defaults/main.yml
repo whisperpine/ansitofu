@@ -4,6 +4,7 @@ install_docker_arch: amd64
 # Repository URLs.
 install_docker_gpg_url: https://download.docker.com/linux/ubuntu/gpg
 install_docker_repo_url: https://download.docker.com/linux/ubuntu
+install_docker_key_file: /etc/apt/keyrings/docker.gpg
 
 # Users to add to the docker group.
 install_docker_users:

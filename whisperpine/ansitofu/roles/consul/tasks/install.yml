@@ -22,14 +22,17 @@
     shell: /usr/sbin/nologin
     system: true
 
-- name: Add consul gpg key
-  ansible.builtin.apt_key:
+- name: Download consul GPG key
+  ansible.builtin.get_url:
     url: "{{ consul_gpg_url }}"
-    state: present
+    dest: "{{ consul_key_file }}"
+    mode: "0644"
 
 - name: Add HashiCorp apt repository
   ansible.builtin.apt_repository:
-    repo: "deb [arch=amd64] {{ consul_repo_url }} {{ ansible_facts['distribution_release'] }} main"
+    repo: >-
+      deb [arch=amd64 signed-by={{ consul_key_file }}]
+      {{ consul_repo_url }} {{ ansible_facts['distribution_release'] }} main
     state: present
 
 - name: Install consul
