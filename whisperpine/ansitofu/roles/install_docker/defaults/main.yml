@@ -12,8 +12,8 @@ install_docker_users:
 
 # Dependencies required for installation.
 install_docker_dependencies:
-  - ca-certificates # required by the "ansible.builtin.get_url" module
-  - gnupg # required by the "ansible.builtin.apt_repository" module
+  - gnupg
+  - ca-certificates
   - apt-transport-https
   - software-properties-common
   - curl

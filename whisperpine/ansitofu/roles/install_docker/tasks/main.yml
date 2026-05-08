@@ -1,13 +1,8 @@
-- name: Update apt package cache
-  ansible.builtin.apt:
-    update_cache: true
-    cache_valid_time: 3600
-  no_log: true
-
 - name: Install required dependencies
   ansible.builtin.apt:
     name: "{{ install_docker_dependencies }}"
     state: present
+    update_cache: true
   no_log: true
 
 - name: Download Docker GPG key
@@ -30,7 +25,6 @@
       stable
     state: present
     filename: docker
-  notify: Update apt package cache
 
 - name: Install Docker and Docker Compose Plugin
   ansible.builtin.apt:

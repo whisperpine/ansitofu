@@ -19,7 +19,6 @@
       {{ ansible_facts['distribution_release'] }}/mongodb-org/{{ mongodb_version }}
       multiverse
     state: present
-  notify: Update apt package cache
 
 - name: Install mongodb
   ansible.builtin.apt:
