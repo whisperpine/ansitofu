@@ -13,8 +13,13 @@
 - name: Download Docker GPG key
   ansible.builtin.get_url:
     url: "{{ install_docker_gpg_url }}"
-    dest: "{{ install_docker_key_file }}"
+    dest: /tmp/docker.asc
     mode: "0644"
+
+- name: Convert Docker GPG key to binary
+  ansible.builtin.command:
+    cmd: gpg --dearmor -o "{{ install_docker_key_file }}" /tmp/docker.asc
+    creates: "{{ install_docker_key_file }}"
 
 - name: Add Docker repository
   ansible.builtin.apt_repository:
