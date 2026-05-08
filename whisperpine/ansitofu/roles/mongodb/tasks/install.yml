@@ -5,12 +5,6 @@
     update_cache: true
   no_log: true
 
-- name: Add mongodb gpg key
-  ansible.builtin.apt_key:
-    url: https://pgp.mongodb.com/server-{{ mongodb_version }}.asc
-    state: present
-  no_log: true
-
 - name: Download mongodb gpg key
   ansible.builtin.get_url:
     url: https://pgp.mongodb.com/server-{{ mongodb_version }}.asc

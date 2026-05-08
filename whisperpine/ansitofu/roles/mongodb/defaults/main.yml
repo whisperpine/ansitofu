@@ -1,4 +1,5 @@
 mongodb_dependencies:
+  - ca-certificates # required by the "ansible.builtin.get_url" module
   - iproute2 # make the "hostvars[inventory_hostname].ansible_default_ipv4.address" fact be gathered
   - cron # required by the "ansible.builtin.cron" module
 

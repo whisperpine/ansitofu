@@ -16,7 +16,6 @@ install_docker_dependencies:
   - ca-certificates
   - curl
   - software-properties-common
-  - gnupg
 
 # Docker packages to install.
 install_docker_packages:
