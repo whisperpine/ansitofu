@@ -1,4 +1,4 @@
-# Anisble Role "install_docker"
+# Anisble Role `install_docker`
 
 This role installs docker ecosystem (containerd, docker client, docker server
 and docker-compose). But it's not intended for installing apps.
@@ -7,7 +7,7 @@ and docker-compose). But it's not intended for installing apps.
 
 Please refer to [molecule/README.md](../../extensions/molecule/README.md).
 
-## End-to-end Test
+## End-to-End Test
 
 Assume that the role is executed successfully.
 

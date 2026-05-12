@@ -1,4 +1,4 @@
-# Anisble Role "pocketid"
+# Anisble Role `pocketid`
 
 Deploy [pocket-id](https://github.com/pocket-id/pocket-id) by docker.
 
@@ -22,7 +22,7 @@ Both services "cloudflared" and "pocket-id" are in the same docker network. The
 Hence there's no need to expose ports in "compose.yaml". Rather, you have to add
 the route `http://pocket-id:1411` to the corresponding Cloudflare Tunnel.
 
-## Post-setup
+## Post-Setup
 
 Right after the deployment, visit `https://MY_DOMAIN/setup` to register the
 admin account. Notice that only (the first) one admin account can be signed up

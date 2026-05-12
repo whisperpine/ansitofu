@@ -1,4 +1,4 @@
-# Anisble Role "ncat_listen"
+# Anisble Role `ncat_listen`
 
 Create a systemd template unit `ncat@.service` so you can start listeners like:
 
@@ -28,7 +28,7 @@ ncat_listen_ports: [10000, 10001]
 
 Please refer to [molecule/README.md](../../extensions/molecule/README.md).
 
-## End-to-end Test
+## End-to-End Test
 
 After the "ncat_listen" role applied to the hosts,
 `ssh` to any one of the hosts to run the following command:

@@ -1,4 +1,4 @@
-# Ansible Role "mongodb"
+# Ansible Role `mongodb`
 
 Setup MongoDB cluster consisting of 3 members: 1 primary, 1 secondary, 1 arbiter.
 

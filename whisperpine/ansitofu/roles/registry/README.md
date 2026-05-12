@@ -1,4 +1,4 @@
-# Anisble Role "registry"
+# Anisble Role `registry`
 
 Setup local docker registry with self-signed certificate.
 
@@ -29,7 +29,7 @@ Please make sure that:
 - All hosts can see each other (e.g. in the same subnet, or have public IPs).
 - The "node_1" allows inbound to 5000 TCP port (e.g. firewall, security group).
 
-## End-to-end Test
+## End-to-End Test
 
 Assume that the role is executed successfully.
 

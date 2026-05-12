@@ -10,7 +10,7 @@ Ansible roles are tested by molecule in this repository.
 
 ## Get Started
 
-It's recommended to use the `just` command for less keystrokes (refer to [justfile](../justfile)):
+It's recommended to use the `just` command for less keystrokes (refer to [justfile](../../../../justfile)):
 
 ```sh
 just test SCENARIO  # test a given scenario
@@ -31,7 +31,7 @@ To speed up testing, feel free to run multiple scenarios in parallel.
 ## Inventory
 
 The inventory used and shared by all scenarios is [.hosts/inventory.yml](./.hosts/inventory.yml)
-which is a symlink of [the real inventory](../inventories/inventory.yml).
+which is a symlink of [the real inventory](../../../../inventories/inventory.yml).
 The difference between using these two inventories is that they have different
 sibling `group_vars` directory, which provides different ansible variables.
 

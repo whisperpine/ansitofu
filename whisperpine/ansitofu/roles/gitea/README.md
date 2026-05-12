@@ -1,4 +1,4 @@
-# Anisble Role "gitea"
+# Anisble Role `gitea`
 
 Deploy [gitea](https://github.com/go-gitea/gitea) by docker.
 
@@ -22,7 +22,7 @@ Both services "cloudflared" and "gitea" are in the same docker network. The
 Hence there's no need to expose ports in "compose.yaml". Rather, you have to add
 the route `http://gitea:3000` to the corresponding Cloudflare Tunnel.
 
-## Post-setup
+## Post-Setup
 
 If gitea is deployed the first time, modify the
 `gitea_allow_only_external_registration` and `gitea_enable_password_signin_form`

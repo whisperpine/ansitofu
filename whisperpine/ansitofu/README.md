@@ -1,3 +1,3 @@
-# Ansible Collection - whisperpine.ansitofu
+# Ansible Collection - `whisperpine.ansitofu`
 
 Documentation for the collection.
