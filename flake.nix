@@ -31,6 +31,7 @@
               trivy # scan security issues
               typos # check misspelling
               prek # better pre-commit
+              rumdl # markdown linter
               yq # yaml parser
 
               # --- automation --- #
