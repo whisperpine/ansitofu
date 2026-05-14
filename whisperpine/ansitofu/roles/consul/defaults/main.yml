@@ -3,7 +3,7 @@ consul_user: "consul"
 consul_group: "consul"
 
 consul_dependencies:
-  - gnupg
+  - gnupg # required by the "ansible.builtin.apt_repository" module
   - ca-certificates # required by the "ansible.builtin.get_url" module
   - iproute2 # make the "hostvars[inventory_hostname].ansible_default_ipv4.address" fact be gathered
 
