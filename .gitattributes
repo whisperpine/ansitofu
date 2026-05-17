@@ -6,3 +6,7 @@ flake.nix -linguist-detectable
 .envrc -linguist-detectable
 # Remove justfile from repo statistics.
 justfile -linguist-detectable
+# Remove all .tf files from repo statistics.
+**/*.tf -linguist-detectable
+# Remove all .hcl files from repo statistics.
+**/*.hcl -linguist-detectable
