@@ -1,5 +1,5 @@
 # --- used by tasks --- #
-container_image: ubuntu-py:24.04
+container_image: ubuntu-py:26.04
 molecule_scenario_name: "{{ lookup('env', 'MOLECULE_SCENARIO_NAME') }}"
 docker_network_name: "ansitofu-molecule-{{ molecule_scenario_name }}"
 
