@@ -9,7 +9,7 @@ services:
     command: tunnel --no-autoupdate run --token ${CLOUDFLARED_TOKEN:?}
 
   gitea:
-    image: gitea/gitea:1.25.5-rootless
+    image: gitea/gitea:1.26.4-rootless
     restart: unless-stopped
     pull_policy: if_not_present
     volumes:
