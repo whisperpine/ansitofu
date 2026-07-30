@@ -7,5 +7,5 @@
   tasks:
     - name: Ensure file 99-disable-password-auth.conf exists
       ansible.builtin.file:
-        path: /etc/ssh/sshd_config.d/99-disable-password-auth.conf
+        path: /etc/ssh/sshd_config.d/5-disable-password-auth.conf
         state: file
