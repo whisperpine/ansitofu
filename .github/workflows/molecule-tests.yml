@@ -37,3 +37,9 @@ jobs:
     secrets: inherit
     with:
       scenario: mongodb
+
+  sshd_configs:
+    uses: ./.github/workflows/molecule-test-reusable.yml
+    secrets: inherit
+    with:
+      scenario: sshd_configs

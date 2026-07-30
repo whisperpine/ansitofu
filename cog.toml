@@ -8,6 +8,7 @@ scopes = [
   "mongodb",
   "docker",
   "registry",
+  "sshd",
   "gitea",
   "ncat",
   "monitor",
