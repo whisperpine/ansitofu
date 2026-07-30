@@ -1,0 +1,3 @@
+# The priority of the "xxx-disable-password-auth.conf" file.
+# For example, if this variable is 5, the file name will be "5-disable-password-auth.conf".
+sshd_configs_disable_passwd_auth_priority: 5

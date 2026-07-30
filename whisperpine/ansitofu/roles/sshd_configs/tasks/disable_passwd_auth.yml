@@ -1,0 +1,12 @@
+- name: Ensure /etc/ssh/sshd_config.d directory exists
+  ansible.builtin.file:
+    path: /etc/ssh/sshd_config.d
+    state: directory
+    mode: "0755"
+
+- name: Disable SSH password authentication
+  ansible.builtin.copy:
+    content: "PasswordAuthentication no\n"
+    dest: /etc/ssh/sshd_config.d/{{ sshd_configs_disable_passwd_auth_priority }}-disable-password-auth.conf
+    mode: "0644"
+  notify: Restart sshd

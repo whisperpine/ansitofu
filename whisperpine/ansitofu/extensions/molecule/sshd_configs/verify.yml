@@ -1,0 +1,11 @@
+# Purpose: assert that the instance really ended up in the expected state.
+# Molecule calls this playbook with `molecule verify`.
+- name: Verify
+  hosts: all
+  gather_facts: false
+  no_log: "{{ molecule_no_log }}"
+  tasks:
+    - name: Ensure file 99-disable-password-auth.conf exists
+      ansible.builtin.file:
+        path: /etc/ssh/sshd_config.d/5-disable-password-auth.conf
+        state: file
