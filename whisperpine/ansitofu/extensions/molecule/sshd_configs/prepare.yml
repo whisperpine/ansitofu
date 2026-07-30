@@ -20,3 +20,9 @@
         state: present
         update_cache: true
       no_log: true
+
+    - name: Start sshd
+      ansible.builtin.service:
+        name: sshd
+        state: started
+      no_log: true
