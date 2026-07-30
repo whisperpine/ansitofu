@@ -17,19 +17,21 @@
     creates: "{{ install_docker_key_file }}"
 
 - name: Add Docker repository
-  ansible.builtin.apt_repository:
-    repo: >-
-      deb [arch={{ install_docker_arch }} signed-by={{ install_docker_key_file }}]
-      {{ install_docker_repo_url }}
-      {{ ansible_facts['distribution_release'] }}
-      stable
+  ansible.builtin.deb822_repository:
+    name: docker
+    install_python_debian: true
+    architectures: ["{{ install_docker_arch }}"]
+    signed_by: "{{ install_docker_key_file }}"
+    uris: ["{{ install_docker_repo_url }}"]
+    suites: ["{{ ansible_facts['distribution_release'] }}"]
+    components: [stable]
     state: present
-    filename: docker
 
 - name: Install Docker and Docker Compose Plugin
   ansible.builtin.apt:
     name: "{{ install_docker_packages }}"
     state: present
+    update_cache: true
   no_log: true
 
 - name: Ensure Docker service is running
