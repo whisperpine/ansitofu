@@ -30,8 +30,8 @@
     creates: "{{ consul_key_file }}"
 
 - name: Add HashiCorp apt repository
-  ansible.builtin.apt_repository:
-    repo: >-
+  ansible.builtin.deb822_repository:
+    name: >-
       deb [arch=amd64 signed-by={{ consul_key_file }}]
       {{ consul_repo_url }} {{ ansible_facts['distribution_release'] }} main
     state: present

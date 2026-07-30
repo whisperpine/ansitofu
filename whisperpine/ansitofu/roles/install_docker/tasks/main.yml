@@ -17,14 +17,13 @@
     creates: "{{ install_docker_key_file }}"
 
 - name: Add Docker repository
-  ansible.builtin.apt_repository:
-    repo: >-
+  ansible.builtin.deb822_repository:
+    name: >-
       deb [arch={{ install_docker_arch }} signed-by={{ install_docker_key_file }}]
       {{ install_docker_repo_url }}
       {{ ansible_facts['distribution_release'] }}
       stable
     state: present
-    filename: docker
 
 - name: Install Docker and Docker Compose Plugin
   ansible.builtin.apt:
