@@ -31,6 +31,7 @@
   ansible.builtin.apt:
     name: mongodb-org
     state: present
+    update_cache: true
   no_log: true
 
 ## For debug only.

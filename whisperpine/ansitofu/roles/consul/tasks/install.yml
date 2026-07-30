@@ -44,6 +44,7 @@
   ansible.builtin.apt:
     name: consul
     state: present
+    update_cache: true
   no_log: true
 
 - name: Create consul directories
