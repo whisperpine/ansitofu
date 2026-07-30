@@ -18,11 +18,12 @@
 
 - name: Add Docker repository
   ansible.builtin.deb822_repository:
-    name: >-
-      deb [arch={{ install_docker_arch }} signed-by={{ install_docker_key_file }}]
-      {{ install_docker_repo_url }}
-      {{ ansible_facts['distribution_release'] }}
-      stable
+    name: docker
+    architectures: ["{{ install_docker_arch }}"]
+    signed_by: "{{ install_docker_key_file }}"
+    uris: ["{{ install_docker_repo_url }}"]
+    suites: ["{{ ansible_facts['distribution_release'] }}"]
+    components: [stable]
     state: present
 
 - name: Install Docker and Docker Compose Plugin

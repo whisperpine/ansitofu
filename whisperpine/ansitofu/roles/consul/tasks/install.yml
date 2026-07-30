@@ -31,9 +31,12 @@
 
 - name: Add HashiCorp apt repository
   ansible.builtin.deb822_repository:
-    name: >-
-      deb [arch=amd64 signed-by={{ consul_key_file }}]
-      {{ consul_repo_url }} {{ ansible_facts['distribution_release'] }} main
+    name: hashicorp-consul
+    architectures: [amd64]
+    signed_by: "{{ consul_key_file }}"
+    uris: ["{{ consul_repo_url }}"]
+    suites: ["{{ ansible_facts['distribution_release'] }}"]
+    components: [main]
     state: present
 
 - name: Install consul
