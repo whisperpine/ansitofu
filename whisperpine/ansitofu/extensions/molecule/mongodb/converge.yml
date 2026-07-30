@@ -3,6 +3,6 @@
 - name: Converge
   hosts: mongodb
   tasks:
-    - name: Apply role under test
+    - name: Apply the role under test
       ansible.builtin.include_role:
         name: whisperpine.ansitofu.mongodb

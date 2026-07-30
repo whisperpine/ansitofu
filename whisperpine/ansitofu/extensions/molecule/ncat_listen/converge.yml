@@ -3,6 +3,6 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: Apply the vcounter role
+    - name: Apply the role under test
       ansible.builtin.include_role:
         name: whisperpine.ansitofu.ncat_listen
