@@ -49,7 +49,7 @@ ansible:
   playbooks:
     # syntax: ../default/syntax.yml
     create: ../default/create.yml
-    prepare: ../default/prepare.yml
+    prepare: prepare.yml
     converge: converge.yml
     # idempotence: idempotence.yml
     # side_effect: side_effect.yml
