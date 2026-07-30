@@ -14,14 +14,14 @@
         msg: "{{ python_version.stdout }}"
       no_log: false
 
-    - name: Ensure sshd is up and running
+    - name: Ensure sshd executable is installed
       ansible.builtin.apt:
         name: [openssh-server]
         state: present
         update_cache: true
       no_log: true
 
-    - name: Start sshd
+    - name: Start the sshd service
       ansible.builtin.service:
         name: sshd
         state: started
