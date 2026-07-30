@@ -19,6 +19,7 @@
 - name: Add Docker repository
   ansible.builtin.deb822_repository:
     name: docker
+    install_python_debian: true
     architectures: ["{{ install_docker_arch }}"]
     signed_by: "{{ install_docker_key_file }}"
     uris: ["{{ install_docker_repo_url }}"]

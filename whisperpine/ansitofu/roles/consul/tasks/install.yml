@@ -32,6 +32,7 @@
 - name: Add HashiCorp apt repository
   ansible.builtin.deb822_repository:
     name: hashicorp-consul
+    install_python_debian: true
     architectures: [amd64]
     signed_by: "{{ consul_key_file }}"
     uris: ["{{ consul_repo_url }}"]
