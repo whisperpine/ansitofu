@@ -30,8 +30,10 @@ data "aws_ami" "ubuntu_24_04" {
   # Find filters in Ubuntu docs:
   # https://documentation.ubuntu.com/aws/aws-how-to/instances/find-ubuntu-images/
   filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
+    name = "name"
+    # Ubuntu 24.04: "ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*".
+    # Ubuntu 26.04: "ubuntu/images/hvm-ssd-gp3/ubuntu-resolute-26.04-amd64-server-*".
+    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-resolute-26.04-amd64-server-*"]
   }
 }
 

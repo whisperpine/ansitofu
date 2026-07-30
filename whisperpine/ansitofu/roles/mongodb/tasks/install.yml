@@ -13,10 +13,15 @@
 
 - name: Add mongodb repository
   ansible.builtin.apt_repository:
+    # Note: This is a workaround, since mongodb doesn't have a repo in Ubuntu
+    # 26.04 LTS (resolute). Once mongdb supports Ubuntu 26.04 LTS, replace
+    # `noble` with `{{ ansible_facts['distribution_release'] }}`. Check if
+    # mongdb supports Ubuntu 26.04 LTS with this URL:
+    # https://repo.mongodb.org/apt/ubuntu/dists/resolute/mongodb-org/8.0/InRelease
     repo: >-
       deb [arch=amd64 signed-by={{ mongodb_key_file }}]
       {{ mongodb_repo_url }}
-      {{ ansible_facts['distribution_release'] }}/mongodb-org/{{ mongodb_version }}
+      noble/mongodb-org/{{ mongodb_version }}
       multiverse
     state: present
 

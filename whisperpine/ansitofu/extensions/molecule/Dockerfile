@@ -2,7 +2,7 @@
 # Ansible requires the target host to have python3 installed.
 # Therefore, we build a dedicated container image for test purpose.
 
-FROM ubuntu:24.04
+FROM ubuntu:26.04
 
 # Prevent interactive prompts during build.
 ENV DEBIAN_FRONTEND="noninteractive"
