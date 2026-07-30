@@ -13,3 +13,13 @@ RUN apt-get update && \
     python3 python3-cryptography \
     systemd systemd-sysv dbus && \
     rm -rf /var/lib/apt/lists/*
+
+# These containers run in privileged mode (required by systemd), which gives
+# them access to host /dev/tty* devices. By default, systemd spawns
+# getty@.service instances that claim those TTYs, which can displace the host's
+# graphical session (Wayland). Masking these services prevents that.
+RUN systemctl mask \
+    getty@.service \
+    console-getty.service \
+    container-getty@.service \
+    systemd-logind.service
