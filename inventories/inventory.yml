@@ -4,9 +4,8 @@ all:
   vars:
     ansible_user: ubuntu
     ansible_python_interpreter: /usr/bin/python3
-    # The "host_ips" variable should be configured in "variables/override.yml",
-    # which will be used by the `just play` command (refer to "justfile").
-    # "variables/override.yml" will be created when running `just check` for the first time.
+    # The "host_ips" variable is configured in "group_vars/all.yml",
+    # which is encrypted by ansible-vault.
     ansible_host: "{{ host_ips[inventory_hostname] }}"
   hosts:
     node_1:
