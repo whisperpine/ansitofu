@@ -1,4 +1,4 @@
-# AWS EC2 Module
+# AWS VPC Module
 
 Create AWS VPC relevant resources (e.g. Subnet, Security Groups).
 
