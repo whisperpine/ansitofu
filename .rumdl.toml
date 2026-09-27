@@ -6,7 +6,7 @@
 # List of rules to enable exclusively (replaces defaults).
 enable = ["ALL"]
 # Additional rules to disable on top of the disable list (additive)
-extend-disable = ["MD082"]
+extend-disable = ["MD082", "MD093"]
 # List of file/directory patterns to exclude from linting.
 exclude = []
 
