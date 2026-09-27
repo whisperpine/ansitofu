@@ -1,3 +1,3 @@
 # Ansible Collection - `whisperpine.ansitofu`
 
-Documentation for the collection.
+See README on GitHub: [whisperpine/ansitofu](https://github.com/whisperpine/ansitofu).
