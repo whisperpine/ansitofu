@@ -38,7 +38,7 @@ Or declare it in a "requirements.yml":
 ```yaml
 collections:
   - name: whisperpine.ansitofu
-    version: ">=0.10.1"
+    version: ">=0.10.2"
 ```
 
 Then reference any role by its fully qualified collection name:
