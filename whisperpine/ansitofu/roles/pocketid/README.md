@@ -52,8 +52,18 @@ cat ./export.zip |
   ./pocket-id import --yes --path -
 ```
 
-## Remarks
+## Cloudflare Remarks
 
-If your DNS server is Cloudflare, make sure that
-"Rocket Loader" is disabled, otherwise you'll get a blank page.
-Find the config in: Speed / Settings / Content Optimization / Rocket Loader.
+### Rocket Loader
+
+If your DNS server is Cloudflare, make sure that [Rocket Loader](https://developers.cloudflare.com/speed/optimization/content/rocket-loader/)
+is disabled, otherwise you'll get a blank page. Find the config in:
+Speed / Settings / Content Optimization / Rocket Loader.
+
+### Bot Fight Mode
+
+[Bot Fight Mode](https://developers.cloudflare.com/bots/get-started/bot-fight-mode/)
+may prevent OIDC clients working properly. (For example, When trying to log in
+Gitea with pocket-id as the OIDC identity provider, there're no errors but you
+just cannot login.) Hence, consider turning "Bot Fight Mode" off if this issue
+is found.
