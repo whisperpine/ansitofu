@@ -30,9 +30,27 @@ this way.
 
 ## Backup and Restore
 
-Since the "/app/data" directory inside the "pocket-id" container is mapped to
-"./data" locally in "compose.yaml", you can simply backup and restore by
-manipulating the "./data" local directory (especially "./data/pocket-id.db").
+Pocket ID supports [data export and import](https://pocket-id.org/docs/setup/data-export-import)
+as an experimental feature at the moment (v2.18.0).
+
+To export a backup file, run the following command:
+
+```sh
+# Run this command while pocket-id is up and running.
+docker compose exec -T pocket-id \
+  ./pocket-id export --path - \
+  > "./pocket-id-export-$(date --utc +%Y%m%d).zip"
+# Example output: pocket-id-export-20261013.zip
+```
+
+To restore from an exported backup, run the following command:
+
+```sh
+# Run this command while pocket-id isn't running.
+cat ./export.zip |
+  docker compose run -T pocket-id \
+  ./pocket-id import --yes --path -
+```
 
 ## Remarks
 
