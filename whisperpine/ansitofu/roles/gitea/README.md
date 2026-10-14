@@ -24,11 +24,25 @@ the route `http://gitea:3000` to the corresponding Cloudflare Tunnel.
 
 ## Post-Setup
 
+### For the First Time
+
 If gitea is deployed the first time, modify the
 `gitea_allow_only_external_registration` and `gitea_enable_password_signin_form`
 variables to allow admin user registration. These two ansible variables are
 directly used by `ALLOW_ONLY_EXTERNAL_REGISTRATION` and
 `ENABLE_PASSWORD_SIGNIN_FORM` in [app.ini.j2](./templates/app.ini.j2).
+
+### Auth Sources
+
+You can configure "Authentication Sources" (e.g. OIDC) in "Admin Settings".
+
+One issue that you may encounter: When trying to login with external auth
+sources, there're no errors but you just cannot login. This might be caused by
+some security rules of identity providers blocking gitea's requests (e.g. due to
+the low reputation of the IP address where gitea is deployed).
+
+This can be solved on either side: Deploy gitea somewhere else (with high
+reputation IP), or change the rules of identity providers.
 
 ## Backup and Restore
 
