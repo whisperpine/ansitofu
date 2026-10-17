@@ -1,15 +1,15 @@
-# --------------------
+# ------- #
 # utility
-# --------------------
+# ------- #
 
 # list all available subcommands
 [group("utility")]
 _default:
   @just --list
 
-# --------------------
+# ------- #
 # ansible
-# --------------------
+# ------- #
 
 # run ansible-playbook with a given playbook (default: ./playbooks/site.yml)
 [group("ansible")]
@@ -25,9 +25,9 @@ inventory:
     -i inventories/inventory.yml \
     --list
 
-# --------------------
+# -------- #
 # molecule
-# --------------------
+# -------- #
 
 # run "molecule test" with the given SCENARIO
 [group("molecule")]
