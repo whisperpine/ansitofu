@@ -19,7 +19,7 @@ Spin up the registry service on one host, and let all hosts to trust and use it.
 
 ```yaml
 # ./defaults/main.yml
-registry_ip: "{{ hostvars['node_1'].ansible_default_ipv4.address }}"
+registry_ip: "{{ hostvars['node_1'].ansible_facts['default_ipv4']['address'] }}"
 ```
 
 ## Prerequisites
