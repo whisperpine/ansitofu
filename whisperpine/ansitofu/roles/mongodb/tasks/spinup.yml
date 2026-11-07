@@ -23,7 +23,7 @@
   ansible.builtin.wait_for:
     host: 127.0.0.1
     port: "{{ mongodb_port }}"
-    timeout: 10
+    timeout: 20
 
 # If already initialized, exit with status code 1.
 - name: Check if replica set is already initialized
