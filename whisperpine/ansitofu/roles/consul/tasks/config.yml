@@ -1,15 +1,15 @@
-# To make sure "ansible_default_ipv4" is gathered.
+# To make sure "ansible_facts['default_ipv4']" is gathered.
 - name: Gather facts again
   ansible.builtin.setup:
 
-- name: Assert ansible_default_ipv4.address exists
+- name: Assert default_ipv4.address exists
   ansible.builtin.assert:
     that:
-      - hostvars[inventory_hostname].ansible_default_ipv4.address is defined
+      - hostvars[inventory_hostname].ansible_facts['default_ipv4']['address'] is defined
 
-- name: Debug ansible ipv4 address
+- name: Debug ipv4 address
   ansible.builtin.debug:
-    var: hostvars[inventory_hostname].ansible_default_ipv4.address
+    var: hostvars[inventory_hostname].ansible_facts['default_ipv4']['address']
 
 - name: Deploy consul configuration
   ansible.builtin.template:

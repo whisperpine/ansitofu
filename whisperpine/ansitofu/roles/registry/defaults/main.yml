@@ -1,7 +1,7 @@
 # Host name, port number, IP address.
 registry_hostname: "registry.local"
 registry_port: 5000
-registry_ip: "{{ hostvars['node_1'].ansible_default_ipv4.address }}"
+registry_ip: "{{ hostvars['node_1'].ansible_facts['default_ipv4']['address'] }}"
 
 # Directories.
 registry_root: "/opt/registry"
