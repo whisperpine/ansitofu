@@ -7,7 +7,7 @@
 
 - name: Download mongodb gpg key
   ansible.builtin.get_url:
-    url: https://pgp.mongodb.com/server-{{ mongodb_version }}.asc
+    url: "{{ mongodb_gpg_key_url }}"
     dest: "{{ mongodb_key_file }}"
     mode: "0644"
 
@@ -18,12 +18,7 @@
     architectures: [amd64]
     signed_by: "{{ mongodb_key_file }}"
     uris: ["{{ mongodb_repo_url }}"]
-    # Note: This is a workaround, since mongodb doesn't have a repo in Ubuntu
-    # 26.04 LTS (resolute). Once mongdb supports Ubuntu 26.04 LTS, replace
-    # `noble` with `{{ ansible_facts['distribution_release'] }}`. Check if
-    # mongdb supports Ubuntu 26.04 LTS with this URL:
-    # https://repo.mongodb.org/apt/ubuntu/dists/resolute/mongodb-org/8.0/InRelease
-    suites: ["noble/mongodb-org/{{ mongodb_version }}"]
+    suites: ["{{ ansible_facts['distribution_release'] }}/mongodb-org/{{ mongodb_version }}"]
     components: [multiverse]
     state: present
 
