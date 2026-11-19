@@ -13,12 +13,26 @@ on:
         type: string
         description: The molecule scenario name
         required: true
+    secrets:
+      SOPS_AGE_KEY:
+        description: The age key used to decrypt the ansible vault password
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ inputs.scenario }}
+  cancel-in-progress: true
 
 jobs:
   test:
+    name: run molecule tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
 
       - name: Debug versions of required tools
         shell: sh
@@ -31,7 +45,7 @@ jobs:
       - name: Decrypt encrypted.env to generate .vault_pass.txt
         env:
           SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
-        shell: nix shell nixpkgs#sops --quiet --command bash {0}
+        shell: nix shell --inputs-from . nixpkgs#sops --quiet --command bash {0}
         run: |
           source <(sops decrypt --output-type dotenv encrypted.env)
           echo "$ANSIBLE_VAULT_PASSWORD" >.vault_pass.txt
@@ -39,5 +53,7 @@ jobs:
       - name: Run ansible playbook
         shell: nix develop .#test --quiet --command bash {0}
         working-directory: ./whisperpine/ansitofu
+        env:
+          SCENARIO: ${{ inputs.scenario }}
         run: |
-          molecule test --scenario-name "${{ inputs.scenario }}" --report
+          molecule test --scenario-name "$SCENARIO" --report

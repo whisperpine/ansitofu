@@ -7,39 +7,52 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   ncat_listen:
-    uses: ./.github/workflows/molecule-test-reusable.yml
-    secrets: inherit
+    uses: $/.github/workflows/molecule-test-reusable.yml
+    secrets:
+      SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
     with:
       scenario: ncat_listen
 
   install_docker:
-    uses: ./.github/workflows/molecule-test-reusable.yml
-    secrets: inherit
+    uses: $/.github/workflows/molecule-test-reusable.yml
+    secrets:
+      SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
     with:
       scenario: install_docker
 
   consul:
-    uses: ./.github/workflows/molecule-test-reusable.yml
-    secrets: inherit
+    uses: $/.github/workflows/molecule-test-reusable.yml
+    secrets:
+      SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
     with:
       scenario: consul
 
   etc_monitor:
-    uses: ./.github/workflows/molecule-test-reusable.yml
-    secrets: inherit
+    uses: $/.github/workflows/molecule-test-reusable.yml
+    secrets:
+      SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
     with:
       scenario: etc_monitor
 
   mongodb:
-    uses: ./.github/workflows/molecule-test-reusable.yml
-    secrets: inherit
+    uses: $/.github/workflows/molecule-test-reusable.yml
+    secrets:
+      SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
     with:
       scenario: mongodb
 
   sshd_configs:
-    uses: ./.github/workflows/molecule-test-reusable.yml
-    secrets: inherit
+    uses: $/.github/workflows/molecule-test-reusable.yml
+    secrets:
+      SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
     with:
       scenario: sshd_configs

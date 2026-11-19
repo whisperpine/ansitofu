@@ -5,12 +5,21 @@ on:
   push:
     tags: ["v*"]
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   build-and-push:
     name: build and push to galaxy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: cachix/install-nix-action@v31
       - name: Build and push to Ansible Galaxy
         env:
