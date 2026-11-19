@@ -29,6 +29,7 @@
               git-cliff # changelog generator
               trivy # scan security issues
               typos # check misspelling
+              zizmor # lint github actions
               prek # better pre-commit
               rumdl # markdown linter
               yq # yaml parser
